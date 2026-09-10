@@ -185,14 +185,15 @@
             </div>
         </div>
 
-        <div class="bg-deepBlack p-8 rounded-2xl text-white flex flex-col md:flex-row items-center justify-between gap-6">
-            <div>
-                <h4 class="text-2xl font-bold mb-2">See Our Live Discounts</h4>
-                <p class="text-gray-400">Use promo code <strong class="text-primaryRed">diesel8k</strong> to unlock rates.</p>
+        <!-- Embedded Interactive Map via iframe -->
+        <div class="bg-deepBlack p-8 rounded-2xl text-white shadow-xl">
+            <div class="mb-6">
+                <h4 class="text-2xl font-bold mb-2">Check Our Live Map</h4>
+                <p class="text-gray-400">Use promo code <strong class="text-primaryRed">diesel8k</strong> directly in the map below to unlock live rates.</p>
             </div>
-            <a href="https://fulltank.us/fuel-stations" target="_blank" id="btnMap" class="bg-primaryRed hover:bg-red-700 transition px-8 py-4 rounded-full font-bold text-white whitespace-nowrap inline-flex items-center gap-2">
-                Open Interactive Map →
-            </a>
+            <div class="w-full bg-white rounded-xl overflow-hidden" style="min-height: 500px;">
+                <iframe src="https://fulltank.us/fuel-stations" class="w-full h-full min-h-[500px] border-0" title="Full Tank Interactive Fuel Map"></iframe>
+            </div>
         </div>
     </section>
 
@@ -543,12 +544,6 @@
             if (inpGal) inpGal.addEventListener('input', debounceCalcTrack);
             if (inpTrk) inpTrk.addEventListener('input', debounceCalcTrack);
             if (inpCnt) inpCnt.addEventListener('input', debounceCalcTrack);
-
-            // Map Click Tracking
-            const btnMap = document.getElementById('btnMap');
-            if (btnMap) {
-                btnMap.addEventListener('click', () => { trackEvent('map_opened'); });
-            }
 
             // Scroll Tracking
             let scrolledBottom = false;
