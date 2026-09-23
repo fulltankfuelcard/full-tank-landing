@@ -1,0 +1,565 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Full Tank Custom Proposal</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primaryRed: '#E52421',
+                        deepBlack: '#0A0A0A',
+                        alertPink: '#FEE2E2',
+                        successGreen: '#16A34A'
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'system-ui', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        .massive-text {
+            font-size: clamp(5rem, 15vw, 12rem);
+            line-height: 0.8;
+            font-weight: 900;
+            letter-spacing: -0.05em;
+        }
+        .section-num {
+            font-size: clamp(8rem, 25vw, 15rem);
+            line-height: 0.7;
+            font-weight: 900;
+            color: #E52421;
+            margin-left: -0.05em;
+        }
+    </style>
+</head>
+<body class="bg-white text-gray-900 overflow-x-hidden">
+
+    <!-- Header Logo -->
+    <header class="w-full p-6 flex justify-between items-center bg-deepBlack text-white">
+        <div class="font-black text-2xl tracking-tighter">Full<span class="text-primaryRed">TANK</span></div>
+        <div class="text-xs uppercase tracking-widest text-gray-400 font-bold">Custom Proposal</div>
+    </header>
+
+    <!-- HERO SECTION -->
+    <section class="px-6 py-16 max-w-5xl mx-auto">
+        <h1 class="text-4xl md:text-6xl font-black uppercase tracking-tight leading-none mb-4">
+            Stop Leaving Money at the Pump, <span id="companyDisplayMain" class="text-primaryRed">Fleet Partner</span>.
+        </h1>
+        
+        <div class="mt-8 mb-8">
+            <div class="massive-text text-primaryRed mb-2">$630</div>
+            <h2 class="text-2xl md:text-3xl font-bold uppercase tracking-tight">Back in your pocket — per truck, per week.</h2>
+            <p class="text-gray-600 font-medium mt-2 max-w-2xl text-lg">
+                Beat your current fuel card's discounts. Run a live comparison today and see how our direct-to-pump volume contracts save you massive margins nationwide.
+            </p>
+        </div>
+
+        <!-- Custom Audio Player (Pinned High) -->
+        <div class="mb-12 bg-deepBlack p-5 rounded-xl border border-gray-800 shadow-inner max-w-xl">
+            <p class="text-white text-xs font-bold mb-3 uppercase tracking-wider text-gray-400">Voice Note to Listen</p>
+            
+            <audio id="proposalAudio" preload="metadata"></audio>
+            
+            <div class="flex items-center gap-4">
+                <button id="playPauseBtn" class="bg-primaryRed hover:bg-red-700 text-white rounded-full w-14 h-14 flex items-center justify-center transition focus:outline-none flex-shrink-0 shadow-lg">
+                    <!-- Play Icon -->
+                    <svg id="playIcon" class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20"><path d="M4 4l12 6-12 6z"></path></svg>
+                    <!-- Pause Icon (Hidden) -->
+                    <svg id="pauseIcon" class="w-6 h-6 hidden" fill="currentColor" viewBox="0 0 20 20"><path d="M5 4h3v12H5V4zm7 0h3v12h-3V4z"></path></svg>
+                </button>
+                <div class="flex-1">
+                    <input type="range" id="audioProgress" class="w-full accent-primaryRed h-2 bg-gray-700 rounded-lg appearance-none cursor-pointer" value="0" min="0" max="100">
+                </div>
+            </div>
+        </div>
+
+        <!-- Custom Lead Data Card -->
+        <div class="bg-gray-50 border border-gray-200 p-6 rounded-xl shadow-sm max-w-xl">
+            <p class="text-xs uppercase tracking-widest text-gray-500 font-bold mb-4 border-b border-gray-200 pb-2">Prepared For</p>
+            
+            <!-- Dynamic Data Fields (Hidden by default, shown if data exists) -->
+            <p id="contactNameDisplay" class="text-2xl font-black text-deepBlack mb-1 hidden"></p>
+            <p id="companyNameBadge" class="text-lg font-bold text-primaryRed mb-3 hidden"></p>
+            <p id="addressDisplay" class="text-sm font-medium text-gray-700 mb-3 hidden"></p>
+            
+            <p id="trucksDisplayBadge" class="text-sm font-bold text-gray-900 mb-4 hidden">
+                Fleet Size: <span class="text-primaryRed" id="truckCountText"></span>
+            </p>
+            
+            <div class="flex flex-wrap gap-2 mt-2" id="badgesContainer">
+                <!-- MC/DOT Badges injected via JS -->
+            </div>
+        </div>
+    </section>
+
+    <!-- SECTION 01: CALCULATOR DIVIDER -->
+    <section class="bg-deepBlack text-white py-20 px-6 overflow-hidden">
+        <div class="max-w-5xl mx-auto flex flex-col md:flex-row items-start md:items-center gap-8">
+            <div class="section-num">01</div>
+            <div>
+                <p class="text-primaryRed font-bold text-sm tracking-widest uppercase mb-2">Section</p>
+                <h2 class="text-4xl md:text-5xl font-black mb-2">Calculate Savings</h2>
+                <p class="text-gray-400 text-lg">Scale your savings as your fleet grows.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- SECTION 01: CALCULATOR CONTENT -->
+    <section class="py-16 px-6 max-w-5xl mx-auto">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-12">
+            <!-- Inputs -->
+            <div class="space-y-6">
+                <div>
+                    <label class="block text-sm font-bold uppercase tracking-wide text-gray-700 mb-2">Weekly Gallons Per Truck</label>
+                    <input type="number" id="calcGallons" value="0" class="w-full text-2xl font-bold border-2 border-gray-300 rounded-lg p-4 focus:border-primaryRed focus:outline-none transition">
+                </div>
+                <div>
+                    <label class="block text-sm font-bold uppercase tracking-wide text-gray-700 mb-2">Number of Trucks</label>
+                    <input type="number" id="calcTrucks" value="0" class="w-full text-2xl font-bold border-2 border-gray-300 rounded-lg p-4 focus:border-primaryRed focus:outline-none transition">
+                </div>
+                <div>
+                    <label class="block text-sm font-bold uppercase tracking-wide text-gray-700 mb-2">Beat Your Current Discount By (¢/gal)</label>
+                    <input type="number" id="calcCents" value="0" min="0" class="w-full text-2xl font-bold border-2 border-gray-300 rounded-lg p-4 focus:border-primaryRed focus:outline-none transition">
+                </div>
+            </div>
+
+            <!-- Output -->
+            <div class="bg-deepBlack text-white rounded-2xl p-8 flex flex-col justify-center shadow-xl">
+                <h3 class="text-primaryRed font-bold uppercase tracking-widest text-sm mb-6">Your Savings Forecast</h3>
+                
+                <div class="space-y-6">
+                    <div class="flex justify-between items-end border-b border-gray-800 pb-4">
+                        <span class="text-gray-400 font-medium">Weekly Savings</span>
+                        <span class="text-3xl font-bold text-white" id="outWeekly">$0.00</span>
+                    </div>
+                    <div class="flex justify-between items-end border-b border-gray-800 pb-4">
+                        <span class="text-gray-400 font-medium">Monthly Savings</span>
+                        <span class="text-3xl font-bold text-white" id="outMonthly">$0.00</span>
+                    </div>
+                    <div class="flex justify-between items-end">
+                        <span class="text-gray-400 font-medium">Yearly Margin</span>
+                        <span class="text-4xl font-black text-primaryRed" id="outYearly">$0.00</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SECTION 02: NETWORK DIVIDER -->
+    <section class="bg-deepBlack text-white py-20 px-6 overflow-hidden">
+        <div class="max-w-5xl mx-auto flex flex-col md:flex-row items-start md:items-center gap-8">
+            <div class="section-num">02</div>
+            <div>
+                <p class="text-primaryRed font-bold text-sm tracking-widest uppercase mb-2">Section</p>
+                <h2 class="text-4xl md:text-5xl font-black mb-2">Live Discounts</h2>
+                <p class="text-gray-400 text-lg">Transparent Rates, No Guesswork.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- SECTION 02: NETWORK CONTENT -->
+    <section class="py-16 px-6 max-w-5xl mx-auto">
+        <h3 class="text-3xl font-black uppercase mb-4">Unbeatable Network</h3>
+        <p class="text-lg text-gray-700 mb-8 max-w-3xl">
+            We partner with major nationwide networks including <strong>Love's, Pilot Flying J, and TA Petro</strong> to bring massive discounts directly to your bottom line. All premium stops on one single fuel card.
+        </p>
+        
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-6 mb-12">
+            <div class="bg-gray-50 border border-gray-200 p-6 rounded-xl text-center">
+                <div class="text-4xl font-black text-primaryRed mb-2">1,572</div>
+                <div class="text-sm font-bold uppercase text-gray-600">Total Locations</div>
+            </div>
+            <div class="bg-gray-50 border border-gray-200 p-6 rounded-xl text-center">
+                <div class="text-4xl font-black text-primaryRed mb-2">180+</div>
+                <div class="text-sm font-bold uppercase text-gray-600">Discounts > $0.80/gal</div>
+            </div>
+            <div class="bg-gray-50 border border-gray-200 p-6 rounded-xl text-center">
+                <div class="text-4xl font-black text-primaryRed mb-2">$1.00+</div>
+                <div class="text-sm font-bold uppercase text-gray-600">Savings at Hubs</div>
+            </div>
+        </div>
+
+        <!-- Embedded Interactive Map via iframe with Highlighted Promo Box -->
+        <div class="bg-deepBlack p-8 rounded-2xl text-white shadow-xl">
+            <div class="mb-6 flex flex-col md:flex-row md:items-center justify-between gap-6">
+                <div class="flex-1">
+                    <h4 class="text-2xl font-bold mb-2">Check Our Live Map</h4>
+                    <p class="text-gray-400">Apply the promo code directly in the map below to instantly unlock live rates across the network.</p>
+                </div>
+                <div class="bg-gray-900 border-2 border-gray-700 p-4 rounded-xl text-center flex-shrink-0 shadow-inner">
+                    <p class="text-xs uppercase tracking-widest text-gray-400 font-bold mb-1">PROMO CODE</p>
+                    <p class="text-4xl font-black text-primaryRed tracking-wider">diesel8k</p>
+                </div>
+            </div>
+            <div class="w-full bg-white rounded-xl overflow-hidden" style="min-height: 500px;">
+                <iframe src="https://fulltank.us/fuel-stations" class="w-full h-full min-h-[500px] border-0" title="Full Tank Interactive Fuel Map"></iframe>
+            </div>
+        </div>
+    </section>
+
+    <!-- SECTION 03: SECURITY DIVIDER -->
+    <section class="bg-deepBlack text-white py-20 px-6 overflow-hidden">
+        <div class="max-w-5xl mx-auto flex flex-col md:flex-row items-start md:items-center gap-8">
+            <div class="section-num">03</div>
+            <div>
+                <p class="text-primaryRed font-bold text-sm tracking-widest uppercase mb-2">Section</p>
+                <h2 class="text-4xl md:text-5xl font-black mb-2">Zero-Fraud Security</h2>
+                <p class="text-gray-400 text-lg">Next-Level Protection via Route One Go.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- SECTION 03: SECURITY CONTENT -->
+    <section class="py-16 px-6 max-w-5xl mx-auto">
+        <div class="flex flex-col md:flex-row gap-12 items-center">
+            <div class="flex-1">
+                <h3 class="text-3xl font-black uppercase mb-4">Make Card Cloning Impossible</h3>
+                <p class="text-lg text-gray-700 mb-6">
+                    Standard "free" cards send PINs via basic SMS, which is the #1 way fuel cards get skimmed and cloned. We protect your bottom line by requiring the <strong>Route One Go</strong> app.
+                </p>
+                <ul class="space-y-4">
+                    <li class="flex items-start gap-4">
+                        <div class="mt-1 w-6 h-6 rounded-full bg-primaryRed text-white flex items-center justify-center font-bold text-sm flex-shrink-0">✓</div>
+                        <div>
+                            <strong class="block text-gray-900">Dynamic PIN Technology</strong>
+                            <span class="text-gray-600">The app generates a unique, one-time PIN for every single transaction, with zero delays.</span>
+                        </div>
+                    </li>
+                    <li class="flex items-start gap-4">
+                        <div class="mt-1 w-6 h-6 rounded-full bg-primaryRed text-white flex items-center justify-center font-bold text-sm flex-shrink-0">✓</div>
+                        <div>
+                            <strong class="block text-gray-900">Premium Driver Navigation</strong>
+                            <span class="text-gray-600">Includes truck-specific routing, live traffic, multi-stop planning, and DOT weigh station alerts.</span>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+            <div class="flex-1 bg-gray-100 rounded-3xl p-8 border border-gray-200 flex items-center justify-center shadow-inner">
+                <!-- Abstract phone mockup -->
+                <div class="w-64 h-96 bg-white rounded-3xl border-8 border-deepBlack shadow-2xl relative overflow-hidden flex flex-col">
+                    <div class="bg-primaryRed text-white p-4 text-center font-bold">Route One Go</div>
+                    <div class="flex-1 p-6 flex flex-col items-center justify-center">
+                        <div class="text-sm text-gray-500 font-bold mb-2">YOUR UNIQUE PIN</div>
+                        <div class="text-4xl font-black tracking-widest text-deepBlack bg-gray-100 px-4 py-2 rounded-lg">8492</div>
+                        <div class="mt-8 text-xs text-center text-gray-400">Expires in 00:59</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SECTION 04: CHOOSE YOUR CARD DIVIDER -->
+    <section class="bg-deepBlack text-white py-20 px-6 overflow-hidden">
+        <div class="max-w-5xl mx-auto flex flex-col md:flex-row items-start md:items-center gap-8">
+            <div class="section-num">04</div>
+            <div>
+                <p class="text-primaryRed font-bold text-sm tracking-widest uppercase mb-2">Section</p>
+                <h2 class="text-4xl md:text-5xl font-black mb-2">Choose Your Card</h2>
+                <p class="text-gray-400 text-lg">Pick the path that fits how you run your fleet.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- SECTION 04: CHOOSE YOUR CARD CONTENT -->
+    <section class="py-16 px-6 max-w-5xl mx-auto">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+            <!-- Credit Line -->
+            <div class="bg-gray-50 border border-gray-200 p-8 rounded-2xl flex flex-col justify-between shadow-sm">
+                <div>
+                    <h3 class="text-3xl font-black uppercase mb-2">Credit Line</h3>
+                    <p class="text-gray-600 font-medium mb-6">Maximum limits to scale your operations without tying up cash flow.</p>
+                    <div class="text-6xl md:text-7xl font-black text-primaryRed mb-2 tracking-tighter">$4,500</div>
+                    <p class="text-gray-900 font-bold text-xl uppercase tracking-tight">Per truck, per week.</p>
+                </div>
+            </div>
+            
+            <!-- Prepaid -->
+            <div class="bg-gray-50 border border-gray-200 p-8 rounded-2xl flex flex-col justify-between shadow-sm">
+                <div>
+                    <h3 class="text-3xl font-black uppercase mb-2">Prepaid Card</h3>
+                    <p class="text-gray-600 font-medium mb-6">Maximum flexibility and control over your fleet's daily spending.</p>
+                    <div class="text-5xl md:text-6xl font-black text-primaryRed mb-2 tracking-tighter mt-2 md:mt-4">PREPAID</div>
+                    <p class="text-gray-900 font-bold text-xl uppercase tracking-tight mt-2 md:mt-4">Use your own funds.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SECTION 05 (CONTACT/BOOKING) -->
+    <section class="bg-gray-50 py-16 px-6 border-t border-gray-200">
+        <div class="max-w-5xl mx-auto flex flex-col lg:flex-row gap-12">
+            
+            <!-- Contact Card -->
+            <div class="flex-1">
+                <h3 class="text-3xl font-black uppercase mb-6">Ready to Run Your Specific Lanes?</h3>
+                <p class="text-lg text-gray-700 mb-8">Schedule a consultation with your dedicated account manager. We will review live maps and customize your program.</p>
+                
+                <div class="bg-deepBlack text-white p-8 rounded-2xl shadow-xl">
+                    <p class="text-primaryRed font-bold text-xs tracking-widest uppercase mb-1">Your Contact</p>
+                    <h4 id="repNameDisplay" class="text-3xl font-black mb-4">Dumitru</h4>
+                    
+                    <a id="repPhoneLink" href="tel:" class="flex items-center gap-3 text-xl font-bold hover:text-primaryRed transition mb-3">
+                        📞 <span id="repPhoneDisplay">(872) 328-7035</span>
+                    </a>
+                    
+                    <a id="repEmailLink" href="mailto:" class="flex items-center gap-3 text-lg font-bold text-gray-400 hover:text-white transition hidden">
+                        ✉️ <span id="repEmailDisplay">Email Rep</span>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Booking Calendar -->
+            <div class="flex-1 bg-white p-2 rounded-2xl shadow-xl border border-gray-100 flex flex-col" style="min-height: 600px;">
+                <iframe id="calendarFrame" src="" class="w-full flex-1 rounded-xl" frameborder="0" style="min-height: 600px;"></iframe>
+                <div class="p-4 text-center">
+                    <a id="mobileCalendarBtn" href="#" target="_blank" class="block w-full bg-deepBlack hover:bg-gray-800 text-white font-bold py-4 rounded-lg transition uppercase tracking-wide">
+                        Open Calendar in New Tab
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="bg-deepBlack text-center p-6 text-gray-500 text-sm font-bold uppercase tracking-wider">
+        &copy; 2026 Full Tank Capital Inc.
+    </footer>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const urlParams = new URLSearchParams(window.location.search);
+            
+            // Client Data Extraction
+            const company = urlParams.get('company');
+            const name = urlParams.get('name');
+            const address = urlParams.get('address'); 
+            const trucks = urlParams.get('trucks');
+            const mc = urlParams.get('mc');
+            const dot = urlParams.get('dot');
+
+            // Sales Rep Data
+            const repName = urlParams.get('repName') || 'Dumitru';
+            const repPhone = urlParams.get('repPhone') || '8723287035';
+            const repEmail = urlParams.get('repEmail');
+            const repCal = urlParams.get('repCal') || 'https://calendar.app.google/yZmeRpTqsnkBpKbN7';
+
+            // --- Safe DOM Population for Client Data ---
+
+            // Main Hero Headline Company Name
+            const elCompanyMain = document.getElementById('companyDisplayMain');
+            if (elCompanyMain) {
+                elCompanyMain.innerText = company ? company : 'Fleet Partner';
+            }
+
+            // Contact Name
+            if (name) {
+                const elName = document.getElementById('contactNameDisplay');
+                if (elName) {
+                    elName.innerText = name;
+                    elName.classList.remove('hidden');
+                }
+            }
+
+            // Company Name (in Prepared For Card)
+            if (company) {
+                const elCompanyBadge = document.getElementById('companyNameBadge');
+                if (elCompanyBadge) {
+                    elCompanyBadge.innerText = company;
+                    elCompanyBadge.classList.remove('hidden');
+                }
+            }
+            
+            // Address
+            if (address) {
+                const elAddress = document.getElementById('addressDisplay');
+                if (elAddress) {
+                    elAddress.innerText = address;
+                    elAddress.classList.remove('hidden');
+                }
+            }
+            
+            // Number of Trucks
+            if (trucks) {
+                const elTrucksBadge = document.getElementById('trucksDisplayBadge');
+                const elTruckCount = document.getElementById('truckCountText');
+                if (elTrucksBadge && elTruckCount) {
+                    elTruckCount.innerText = trucks + (trucks == 1 ? ' Truck' : ' Trucks');
+                    elTrucksBadge.classList.remove('hidden');
+                }
+                
+                const elCalcTrucks = document.getElementById('calcTrucks');
+                if (elCalcTrucks) elCalcTrucks.value = trucks;
+            }
+
+            // Badges (MC / DOT)
+            const badgesContainer = document.getElementById('badgesContainer');
+            if (badgesContainer) {
+                if (mc) {
+                    badgesContainer.innerHTML += `<span class="bg-deepBlack text-white text-xs font-bold px-3 py-1 rounded-md tracking-wider">MC# ${mc}</span>`;
+                }
+                if (dot) {
+                    badgesContainer.innerHTML += `<span class="bg-deepBlack text-white text-xs font-bold px-3 py-1 rounded-md tracking-wider">DOT# ${dot}</span>`;
+                    // Use Success Green for positive status reinforcement per Brand Guidelines
+                    badgesContainer.innerHTML += `<span class="bg-successGreen text-white text-xs font-bold px-3 py-1 rounded-md tracking-wider border border-green-700">ACTIVE</span>`;
+                }
+            }
+
+            // --- Sales Rep Population ---
+            const elRepName = document.getElementById('repNameDisplay');
+            if (elRepName) elRepName.innerText = repName;
+            
+            const elRepPhone = document.getElementById('repPhoneDisplay');
+            if (elRepPhone) elRepPhone.innerText = repPhone;
+            
+            const elRepPhoneLink = document.getElementById('repPhoneLink');
+            if (elRepPhoneLink) elRepPhoneLink.href = 'tel:' + repPhone.replace(/[^0-9+]/g, '');
+
+            const elRepEmailLink = document.getElementById('repEmailLink');
+            const elRepEmailDisplay = document.getElementById('repEmailDisplay');
+            if (repEmail && elRepEmailLink && elRepEmailDisplay) {
+                elRepEmailLink.classList.remove('hidden');
+                elRepEmailLink.href = 'mailto:' + repEmail;
+                elRepEmailDisplay.innerText = repEmail;
+            }
+
+            const elCalFrame = document.getElementById('calendarFrame');
+            if (elCalFrame) elCalFrame.src = repCal;
+            
+            const elMobileCalBtn = document.getElementById('mobileCalendarBtn');
+            if (elMobileCalBtn) elMobileCalBtn.href = repCal;
+
+            // Audio Setup
+            const audioFileName = repName.toLowerCase() + '.mp3';
+            const elAudio = document.getElementById('proposalAudio');
+            if (elAudio) elAudio.src = audioFileName;
+
+            // --- Calculator Logic ---
+            const inpGal = document.getElementById('calcGallons');
+            const inpTrk = document.getElementById('calcTrucks');
+            const inpCnt = document.getElementById('calcCents');
+            
+            const outWk = document.getElementById('outWeekly');
+            const outMo = document.getElementById('outMonthly');
+            const outYr = document.getElementById('outYearly');
+
+            function calculateSavings() {
+                if (!inpGal || !inpTrk || !inpCnt || !outWk || !outMo || !outYr) return;
+                
+                const gal = parseFloat(inpGal.value) || 0;
+                const trk = parseFloat(inpTrk.value) || 0;
+                const cnt = parseFloat(inpCnt.value) || 0;
+
+                const weekly = (gal * trk * (cnt / 100));
+                const monthly = weekly * 4.333; 
+                const yearly = weekly * 52;
+
+                outWk.innerText = '$' + weekly.toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2});
+                outMo.innerText = '$' + monthly.toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2});
+                outYr.innerText = '$' + yearly.toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2});
+            }
+
+            if (inpGal) inpGal.addEventListener('input', calculateSavings);
+            if (inpTrk) inpTrk.addEventListener('input', calculateSavings);
+            if (inpCnt) inpCnt.addEventListener('input', calculateSavings);
+            calculateSavings(); 
+
+            // --- Audio Player Controls ---
+            const playBtn = document.getElementById('playPauseBtn');
+            const playIcon = document.getElementById('playIcon');
+            const pauseIcon = document.getElementById('pauseIcon');
+            const progress = document.getElementById('audioProgress');
+
+            if (elAudio && playBtn) {
+                playBtn.addEventListener('click', () => {
+                    if (elAudio.paused) {
+                        elAudio.play().catch(e => console.log('Playback error:', e));
+                        if (playIcon) playIcon.classList.add('hidden');
+                        if (pauseIcon) pauseIcon.classList.remove('hidden');
+                        trackEvent('audio_played');
+                    } else {
+                        elAudio.pause();
+                        if (playIcon) playIcon.classList.remove('hidden');
+                        if (pauseIcon) pauseIcon.classList.add('hidden');
+                    }
+                });
+
+                elAudio.addEventListener('timeupdate', () => {
+                    if (progress && elAudio.duration) {
+                        const percent = (elAudio.currentTime / elAudio.duration) * 100;
+                        progress.value = percent || 0;
+                    }
+                });
+
+                if (progress) {
+                    progress.addEventListener('input', (e) => {
+                        if (elAudio.duration) {
+                            const time = (e.target.value / 100) * elAudio.duration;
+                            elAudio.currentTime = time;
+                        }
+                    });
+                }
+
+                elAudio.addEventListener('ended', () => {
+                    if (playIcon) playIcon.classList.remove('hidden');
+                    if (pauseIcon) pauseIcon.classList.add('hidden');
+                    if (progress) progress.value = 0;
+                });
+            }
+
+            // --- N8N Tracking ---
+            const n8nWebhookURL = 'https://fultankfuelcard.app.n8n.cloud/webhook/lead-events';
+            
+            function trackEvent(eventType) {
+                if(urlParams.get('preview') === 'true') return;
+                if(!n8nWebhookURL) return;
+
+                const payload = {
+                    event_type: eventType,
+                    client_company: company || 'N/A',
+                    sales_rep: repName || 'N/A',
+                    timestamp: new Date().toLocaleString(),
+                    details: {
+                        trucks: inpTrk ? inpTrk.value : "N/A",
+                        gallons: inpGal ? inpGal.value : "N/A",
+                        cents: inpCnt ? inpCnt.value : "N/A",
+                        projected_yearly_savings: outYr ? outYr.innerText : "N/A"
+                    }
+                };
+
+                fetch(n8nWebhookURL, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(payload)
+                }).catch(err => console.log('Analytics error:', err));
+            }
+
+            // Trigger instant open tracking
+            trackEvent('link_opened');
+
+            // Debounced Calculator Tracking
+            let calcTimeout;
+            function debounceCalcTrack() {
+                clearTimeout(calcTimeout);
+                calcTimeout = setTimeout(() => { trackEvent('calculator_updated'); }, 1500);
+            }
+            if (inpGal) inpGal.addEventListener('input', debounceCalcTrack);
+            if (inpTrk) inpTrk.addEventListener('input', debounceCalcTrack);
+            if (inpCnt) inpCnt.addEventListener('input', debounceCalcTrack);
+
+            // Scroll Tracking
+            let scrolledBottom = false;
+            window.addEventListener('scroll', () => {
+                if(!scrolledBottom && (window.innerHeight + window.scrollY) >= document.body.offsetHeight - 200) {
+                    scrolledBottom = true;
+                    trackEvent('scrolled_to_bottom');
+                }
+            });
+        });
+    </script>
+</body>
+</html>
