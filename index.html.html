@@ -36,6 +36,22 @@
             color: #E52421;
             margin-left: -0.05em;
         }
+        /* Custom Range Slider Thumb */
+        input[type=range] {
+            -webkit-appearance: none;
+            background: #E5E7EB;
+            height: 6px;
+            border-radius: 4px;
+        }
+        input[type=range]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            height: 20px;
+            width: 20px;
+            border-radius: 50%;
+            background: #E52421;
+            cursor: pointer;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+        }
     </style>
 </head>
 <body class="bg-white text-gray-900 overflow-x-hidden">
@@ -83,7 +99,6 @@
         <div class="bg-gray-50 border border-gray-200 p-6 rounded-xl shadow-sm max-w-xl">
             <p class="text-xs uppercase tracking-widest text-gray-500 font-bold mb-4 border-b border-gray-200 pb-2">Prepared For</p>
             
-            <!-- Dynamic Data Fields (Hidden by default, shown if data exists) -->
             <p id="contactNameDisplay" class="text-2xl font-black text-deepBlack mb-1 hidden"></p>
             <p id="companyNameBadge" class="text-lg font-bold text-primaryRed mb-3 hidden"></p>
             <p id="addressDisplay" class="text-sm font-medium text-gray-700 mb-3 hidden"></p>
@@ -99,52 +114,138 @@
     </section>
 
     <!-- SECTION 01: CALCULATOR DIVIDER -->
-    <section class="bg-deepBlack text-white py-20 px-6 overflow-hidden">
-        <div class="max-w-5xl mx-auto flex flex-col md:flex-row items-start md:items-center gap-8">
+    <section class="bg-deepBlack text-white pt-20 px-6">
+        <div class="max-w-5xl mx-auto flex flex-col md:flex-row items-start md:items-center gap-8 mb-12">
             <div class="section-num">01</div>
             <div>
-                <p class="text-primaryRed font-bold text-sm tracking-widest uppercase mb-2">Section</p>
-                <h2 class="text-4xl md:text-5xl font-black mb-2">Calculate Savings</h2>
-                <p class="text-gray-400 text-lg">Scale your savings as your fleet grows.</p>
+                <h2 class="text-4xl md:text-5xl font-black mb-2">Savings Forecast Calculator</h2>
+                <p class="text-gray-400 text-lg">Adjust the sliders below based on your current volume and see exactly how much you can add to your bottom line.</p>
             </div>
         </div>
     </section>
 
     <!-- SECTION 01: CALCULATOR CONTENT -->
-    <section class="py-16 px-6 max-w-5xl mx-auto">
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-12">
-            <!-- Inputs -->
-            <div class="space-y-6">
-                <div>
-                    <label class="block text-sm font-bold uppercase tracking-wide text-gray-700 mb-2">Weekly Gallons Per Truck</label>
-                    <input type="number" id="calcGallons" value="0" class="w-full text-2xl font-bold border-2 border-gray-300 rounded-lg p-4 focus:border-primaryRed focus:outline-none transition">
-                </div>
-                <div>
-                    <label class="block text-sm font-bold uppercase tracking-wide text-gray-700 mb-2">Number of Trucks</label>
-                    <input type="number" id="calcTrucks" value="0" class="w-full text-2xl font-bold border-2 border-gray-300 rounded-lg p-4 focus:border-primaryRed focus:outline-none transition">
-                </div>
-                <div>
-                    <label class="block text-sm font-bold uppercase tracking-wide text-gray-700 mb-2">Beat Your Current Discount By (¢/gal)</label>
-                    <input type="number" id="calcCents" value="0" min="0" class="w-full text-2xl font-bold border-2 border-gray-300 rounded-lg p-4 focus:border-primaryRed focus:outline-none transition">
-                </div>
-            </div>
-
-            <!-- Output -->
-            <div class="bg-deepBlack text-white rounded-2xl p-8 flex flex-col justify-center shadow-xl">
-                <h3 class="text-primaryRed font-bold uppercase tracking-widest text-sm mb-6">Your Savings Forecast</h3>
+    <section class="bg-deepBlack pb-20 px-6">
+        <div class="max-w-5xl mx-auto">
+            <div class="bg-white rounded-3xl shadow-2xl flex flex-col lg:flex-row overflow-hidden border border-gray-200">
                 
-                <div class="space-y-6">
-                    <div class="flex justify-between items-end border-b border-gray-800 pb-4">
-                        <span class="text-gray-400 font-medium">Weekly Savings</span>
-                        <span class="text-3xl font-bold text-white" id="outWeekly">$0.00</span>
+                <!-- Left: Inputs -->
+                <div class="flex-1 p-8 md:p-12 border-b lg:border-b-0 lg:border-r border-gray-100">
+                    <h3 class="text-2xl font-black mb-8 flex items-center gap-3 text-deepBlack">
+                        <svg class="w-6 h-6 text-primaryRed" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4"></path></svg>
+                        Input Your Fleet Data
+                    </h3>
+
+                    <div class="space-y-10">
+                        <!-- Trucks -->
+                        <div>
+                            <div class="flex justify-between items-end mb-4">
+                                <label class="font-bold text-gray-800 text-sm">Number of Trucks</label>
+                                <div class="bg-alertPink text-primaryRed font-black text-2xl px-4 py-1 rounded-lg">
+                                    <input type="number" id="calcTrucks" value="1" min="1" max="100" class="bg-transparent w-16 text-center outline-none">
+                                </div>
+                            </div>
+                            <input type="range" id="slideTrucks" min="1" max="50" value="1" class="w-full">
+                            <div class="flex justify-between text-xs text-gray-400 font-bold mt-2">
+                                <span>1</span>
+                                <span>50+</span>
+                            </div>
+                        </div>
+
+                        <!-- Gallons -->
+                        <div>
+                            <div class="flex justify-between items-end mb-4">
+                                <label class="font-bold text-gray-800 text-sm">Weekly Gallons Per Truck</label>
+                                <div class="bg-alertPink text-primaryRed font-black text-2xl px-4 py-1 rounded-lg flex items-baseline gap-1">
+                                    <input type="number" id="calcGallons" value="1000" min="200" max="5000" step="10" class="bg-transparent w-20 text-right outline-none">
+                                    <span class="text-sm font-bold">gal</span>
+                                </div>
+                            </div>
+                            <input type="range" id="slideGallons" min="200" max="3000" step="50" value="1000" class="w-full">
+                            <div class="flex justify-between text-xs text-gray-400 font-bold mt-2">
+                                <span>200 gal</span>
+                                <span>3,000 gal</span>
+                            </div>
+                        </div>
+
+                        <!-- Price -->
+                        <div>
+                            <div class="flex justify-between items-end mb-4">
+                                <label class="font-bold text-gray-800 text-sm">Average Price at the Pump</label>
+                                <div class="bg-alertPink text-primaryRed font-black text-2xl px-4 py-1 rounded-lg flex items-baseline gap-1">
+                                    <span class="text-lg">$</span>
+                                    <input type="number" id="calcPrice" value="3.50" min="2.00" max="10.00" step="0.01" class="bg-transparent w-20 text-left outline-none">
+                                    <span class="text-sm font-bold">/gal</span>
+                                </div>
+                            </div>
+                            <input type="range" id="slidePrice" min="2.00" max="7.00" step="0.05" value="3.50" class="w-full">
+                            <div class="flex justify-between text-xs text-gray-400 font-bold mt-2">
+                                <span>$2.00</span>
+                                <span>$7.00</span>
+                            </div>
+                        </div>
+
+                        <!-- Cents -->
+                        <div>
+                            <div class="flex justify-between items-end mb-4">
+                                <label class="font-bold text-gray-800 text-sm">Expected Savings vs. Current Price</label>
+                                <div class="bg-alertPink text-primaryRed font-black text-2xl px-4 py-1 rounded-lg flex items-baseline gap-1">
+                                    <input type="number" id="calcCents" value="21" min="1" max="200" class="bg-transparent w-12 text-right outline-none">
+                                    <span class="text-sm font-bold">¢ /gal</span>
+                                </div>
+                            </div>
+                            <input type="range" id="slideCents" min="1" max="100" value="21" class="w-full">
+                            <div class="flex justify-between text-xs text-gray-400 font-bold mt-2">
+                                <span>1¢</span>
+                                <span>$1.00</span>
+                            </div>
+                        </div>
                     </div>
-                    <div class="flex justify-between items-end border-b border-gray-800 pb-4">
-                        <span class="text-gray-400 font-medium">Monthly Savings</span>
-                        <span class="text-3xl font-bold text-white" id="outMonthly">$0.00</span>
+                </div>
+
+                <!-- Right: Output -->
+                <div class="flex-1 p-8 md:p-12 bg-gray-50 flex flex-col justify-between">
+                    <div>
+                        <h3 class="text-sm font-bold tracking-widest text-gray-500 uppercase mb-6 flex items-center gap-2">
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"></path></svg>
+                            YOUR PROFIT RECOVERED
+                        </h3>
+
+                        <div class="space-y-4">
+                            <!-- Spend -->
+                            <div class="bg-white rounded-xl p-5 border border-gray-200 flex justify-between items-center shadow-sm">
+                                <div>
+                                    <div class="font-bold text-gray-600">Current Monthly Spend</div>
+                                    <div class="text-xs text-gray-400">Before Full Tank discounts</div>
+                                </div>
+                                <div class="text-2xl font-black text-gray-400 line-through" id="outSpend">$15,166.67</div>
+                            </div>
+
+                            <!-- Weekly -->
+                            <div class="bg-white rounded-xl p-5 border border-gray-200 flex justify-between items-center shadow-sm">
+                                <div class="font-bold text-gray-600">Weekly Savings</div>
+                                <div class="text-3xl font-black text-deepBlack" id="outWeekly">$210.00</div>
+                            </div>
+
+                            <!-- Monthly -->
+                            <div class="bg-white rounded-xl p-5 border border-gray-200 flex justify-between items-center shadow-sm">
+                                <div class="font-bold text-gray-600">Monthly Savings</div>
+                                <div class="text-3xl font-black text-deepBlack" id="outMonthly">$910.00</div>
+                            </div>
+                        </div>
                     </div>
-                    <div class="flex justify-between items-end">
-                        <span class="text-gray-400 font-medium">Yearly Margin</span>
-                        <span class="text-4xl font-black text-primaryRed" id="outYearly">$0.00</span>
+
+                    <!-- Yearly Black Box -->
+                    <div class="mt-8">
+                        <div class="bg-deepBlack rounded-2xl p-8 shadow-xl text-white">
+                            <div class="text-gray-400 font-bold mb-2">Yearly Savings Forecast</div>
+                            <div class="text-5xl md:text-6xl font-black text-primaryRed mb-4" id="outYearly">$10,920.00</div>
+                            <p class="text-xs text-gray-400 italic">That's money going straight back into your business for maintenance, tires, or truck payments.</p>
+                        </div>
+                        
+                        <a href="#calendarFrame" class="mt-6 block w-full bg-primaryRed hover:bg-red-700 text-white font-bold text-center py-5 rounded-xl transition shadow-lg text-lg">
+                            Claim These Savings Now
+                        </a>
                     </div>
                 </div>
             </div>
@@ -152,7 +253,7 @@
     </section>
 
     <!-- SECTION 02: NETWORK DIVIDER -->
-    <section class="bg-deepBlack text-white py-20 px-6 overflow-hidden">
+    <section class="bg-deepBlack text-white py-20 px-6 overflow-hidden border-t border-gray-800">
         <div class="max-w-5xl mx-auto flex flex-col md:flex-row items-start md:items-center gap-8">
             <div class="section-num">02</div>
             <div>
@@ -185,11 +286,17 @@
             </div>
         </div>
 
-        <!-- Embedded Interactive Map via iframe -->
+        <!-- Embedded Interactive Map via iframe with Highlighted Promo Box -->
         <div class="bg-deepBlack p-8 rounded-2xl text-white shadow-xl">
-            <div class="mb-6">
-                <h4 class="text-2xl font-bold mb-2">Check Our Live Map</h4>
-                <p class="text-gray-400">Use promo code <strong class="text-primaryRed">diesel8k</strong> directly in the map below to unlock live rates.</p>
+            <div class="mb-6 flex flex-col md:flex-row md:items-center justify-between gap-6">
+                <div class="flex-1">
+                    <h4 class="text-2xl font-bold mb-2">Check Our Live Map</h4>
+                    <p class="text-gray-400">Apply the promo code directly in the map below to instantly unlock live rates across the network.</p>
+                </div>
+                <div class="bg-gray-900 border-2 border-gray-700 p-4 rounded-xl text-center flex-shrink-0 shadow-inner">
+                    <p class="text-xs uppercase tracking-widest text-gray-400 font-bold mb-1">PROMO CODE</p>
+                    <p class="text-4xl font-black text-primaryRed tracking-wider">diesel8k</p>
+                </div>
             </div>
             <div class="w-full bg-white rounded-xl overflow-hidden" style="min-height: 500px;">
                 <iframe src="https://fulltank.us/fuel-stations" class="w-full h-full min-h-[500px] border-0" title="Full Tank Interactive Fuel Map"></iframe>
@@ -268,7 +375,7 @@
                 <div>
                     <h3 class="text-3xl font-black uppercase mb-2">Credit Line</h3>
                     <p class="text-gray-600 font-medium mb-6">Maximum limits to scale your operations without tying up cash flow.</p>
-                    <div class="text-6xl md:text-7xl font-black text-primaryRed mb-2 tracking-tighter">$4,500</div>
+                    <div class="text-6xl md:text-7xl font-black text-primaryRed mb-2 tracking-tighter">$5,500</div>
                     <p class="text-gray-900 font-bold text-xl uppercase tracking-tight">Per truck, per week.</p>
                 </div>
             </div>
@@ -298,12 +405,12 @@
                     <p class="text-primaryRed font-bold text-xs tracking-widest uppercase mb-1">Your Contact</p>
                     <h4 id="repNameDisplay" class="text-3xl font-black mb-4">Dumitru</h4>
                     
-                    <a id="repPhoneLink" href="tel:" class="flex items-center gap-3 text-xl font-bold hover:text-primaryRed transition mb-3">
-                        📞 <span id="repPhoneDisplay">(872) 328-7035</span>
+                    <a id="repPhoneLink" href="tel:8728715787" class="flex items-center gap-3 text-xl font-bold hover:text-primaryRed transition mb-3">
+                        📞 <span id="repPhoneDisplay">(872) 871-5787</span>
                     </a>
                     
-                    <a id="repEmailLink" href="mailto:" class="flex items-center gap-3 text-lg font-bold text-gray-400 hover:text-white transition hidden">
-                        ✉️ <span id="repEmailDisplay">Email Rep</span>
+                    <a id="repEmailLink" href="mailto:dumitru@fulltank.us" class="flex items-center gap-3 text-lg font-bold text-gray-400 hover:text-white transition hidden">
+                        ✉️ <span id="repEmailDisplay">dumitru@fulltank.us</span>
                     </a>
                 </div>
             </div>
@@ -336,48 +443,45 @@
             const mc = urlParams.get('mc');
             const dot = urlParams.get('dot');
 
-            // Sales Rep Data
-            const repName = urlParams.get('repName') || 'Dumitru';
-            const repPhone = urlParams.get('repPhone') || '8723287035';
-            const repEmail = urlParams.get('repEmail');
+            // --- Sales Rep Data (Defaulting strictly to Dumitru) ---
+            let repName = urlParams.get('repName') || 'Dumitru';
+            let repPhone = urlParams.get('repPhone') || '8728715787';
+            let repEmail = urlParams.get('repEmail') || 'dumitru@fulltank.us';
             const repCal = urlParams.get('repCal') || 'https://calendar.app.google/yZmeRpTqsnkBpKbN7';
 
-            // --- Safe DOM Population for Client Data ---
+            if (repName.toLowerCase() === 'leman') {
+                repName = 'Dumitru';
+                repPhone = '8728715787';
+                repEmail = 'dumitru@fulltank.us';
+            }
 
-            // Main Hero Headline Company Name
+            // --- Safe DOM Population for Client Data ---
             const elCompanyMain = document.getElementById('companyDisplayMain');
             if (elCompanyMain) {
                 elCompanyMain.innerText = company ? company : 'Fleet Partner';
             }
 
-            // Contact Name
-            if (name) {
-                const elName = document.getElementById('contactNameDisplay');
-                if (elName) {
-                    elName.innerText = name;
-                    elName.classList.remove('hidden');
-                }
+            const elName = document.getElementById('contactNameDisplay');
+            if (elName && name) {
+                elName.innerText = name;
+                elName.classList.remove('hidden');
             }
 
-            // Company Name (in Prepared For Card)
-            if (company) {
-                const elCompanyBadge = document.getElementById('companyNameBadge');
-                if (elCompanyBadge) {
-                    elCompanyBadge.innerText = company;
-                    elCompanyBadge.classList.remove('hidden');
-                }
+            const elCompanyBadge = document.getElementById('companyNameBadge');
+            if (elCompanyBadge && company) {
+                elCompanyBadge.innerText = company;
+                elCompanyBadge.classList.remove('hidden');
             }
             
-            // Address
-            if (address) {
-                const elAddress = document.getElementById('addressDisplay');
-                if (elAddress) {
-                    elAddress.innerText = address;
-                    elAddress.classList.remove('hidden');
-                }
+            const elAddress = document.getElementById('addressDisplay');
+            if (elAddress && address) {
+                elAddress.innerText = address;
+                elAddress.classList.remove('hidden');
             }
             
-            // Number of Trucks
+            // Truck URL mapping
+            const elCalcTrucks = document.getElementById('calcTrucks');
+            const elSlideTrucks = document.getElementById('slideTrucks');
             if (trucks) {
                 const elTrucksBadge = document.getElementById('trucksDisplayBadge');
                 const elTruckCount = document.getElementById('truckCountText');
@@ -385,12 +489,10 @@
                     elTruckCount.innerText = trucks + (trucks == 1 ? ' Truck' : ' Trucks');
                     elTrucksBadge.classList.remove('hidden');
                 }
-                
-                const elCalcTrucks = document.getElementById('calcTrucks');
                 if (elCalcTrucks) elCalcTrucks.value = trucks;
+                if (elSlideTrucks) elSlideTrucks.value = trucks;
             }
 
-            // Badges (MC / DOT)
             const badgesContainer = document.getElementById('badgesContainer');
             if (badgesContainer) {
                 if (mc) {
@@ -398,7 +500,6 @@
                 }
                 if (dot) {
                     badgesContainer.innerHTML += `<span class="bg-deepBlack text-white text-xs font-bold px-3 py-1 rounded-md tracking-wider">DOT# ${dot}</span>`;
-                    // Use Success Green for positive status reinforcement per Brand Guidelines
                     badgesContainer.innerHTML += `<span class="bg-successGreen text-white text-xs font-bold px-3 py-1 rounded-md tracking-wider border border-green-700">ACTIVE</span>`;
                 }
             }
@@ -408,7 +509,15 @@
             if (elRepName) elRepName.innerText = repName;
             
             const elRepPhone = document.getElementById('repPhoneDisplay');
-            if (elRepPhone) elRepPhone.innerText = repPhone;
+            if (elRepPhone) {
+                const cleaned = ('' + repPhone).replace(/\D/g, '');
+                const match = cleaned.match(/^(\d{3})(\d{3})(\d{4})$/);
+                if (match) {
+                    elRepPhone.innerText = '(' + match[1] + ') ' + match[2] + '-' + match[3];
+                } else {
+                    elRepPhone.innerText = repPhone;
+                }
+            }
             
             const elRepPhoneLink = document.getElementById('repPhoneLink');
             if (elRepPhoneLink) elRepPhoneLink.href = 'tel:' + repPhone.replace(/[^0-9+]/g, '');
@@ -427,39 +536,72 @@
             const elMobileCalBtn = document.getElementById('mobileCalendarBtn');
             if (elMobileCalBtn) elMobileCalBtn.href = repCal;
 
-            // Audio Setup
             const audioFileName = repName.toLowerCase() + '.mp3';
             const elAudio = document.getElementById('proposalAudio');
             if (elAudio) elAudio.src = audioFileName;
 
-            // --- Calculator Logic ---
-            const inpGal = document.getElementById('calcGallons');
+            // --- Interactive Calculator Logic ---
+            const slideTrk = document.getElementById('slideTrucks');
+            const slideGal = document.getElementById('slideGallons');
+            const slidePrc = document.getElementById('slidePrice');
+            const slideCnt = document.getElementById('slideCents');
+
             const inpTrk = document.getElementById('calcTrucks');
+            const inpGal = document.getElementById('calcGallons');
+            const inpPrc = document.getElementById('calcPrice');
             const inpCnt = document.getElementById('calcCents');
-            
+
+            const outSpend = document.getElementById('outSpend');
             const outWk = document.getElementById('outWeekly');
             const outMo = document.getElementById('outMonthly');
             const outYr = document.getElementById('outYearly');
 
             function calculateSavings() {
-                if (!inpGal || !inpTrk || !inpCnt || !outWk || !outMo || !outYr) return;
+                if (!inpGal || !inpTrk || !inpCnt || !inpPrc || !outWk || !outMo || !outYr || !outSpend) return;
                 
                 const gal = parseFloat(inpGal.value) || 0;
                 const trk = parseFloat(inpTrk.value) || 0;
                 const cnt = parseFloat(inpCnt.value) || 0;
+                const prc = parseFloat(inpPrc.value) || 0;
 
+                const spendMonthly = gal * trk * prc * 4.333;
                 const weekly = (gal * trk * (cnt / 100));
                 const monthly = weekly * 4.333; 
                 const yearly = weekly * 52;
 
+                outSpend.innerText = '$' + spendMonthly.toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2});
                 outWk.innerText = '$' + weekly.toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2});
                 outMo.innerText = '$' + monthly.toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2});
                 outYr.innerText = '$' + yearly.toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2});
             }
 
-            if (inpGal) inpGal.addEventListener('input', calculateSavings);
-            if (inpTrk) inpTrk.addEventListener('input', calculateSavings);
-            if (inpCnt) inpCnt.addEventListener('input', calculateSavings);
+            function syncFromSlider() {
+                inpTrk.value = slideTrk.value;
+                inpGal.value = slideGal.value;
+                inpPrc.value = parseFloat(slidePrc.value).toFixed(2);
+                inpCnt.value = slideCnt.value;
+                calculateSavings();
+            }
+
+            function syncFromInput() {
+                slideTrk.value = inpTrk.value;
+                slideGal.value = inpGal.value;
+                slidePrc.value = inpPrc.value;
+                slideCnt.value = inpCnt.value;
+                calculateSavings();
+            }
+
+            if (slideTrk) slideTrk.addEventListener('input', syncFromSlider);
+            if (slideGal) slideGal.addEventListener('input', syncFromSlider);
+            if (slidePrc) slidePrc.addEventListener('input', syncFromSlider);
+            if (slideCnt) slideCnt.addEventListener('input', syncFromSlider);
+
+            if (inpTrk) inpTrk.addEventListener('input', syncFromInput);
+            if (inpGal) inpGal.addEventListener('input', syncFromInput);
+            if (inpPrc) inpPrc.addEventListener('input', syncFromInput);
+            if (inpCnt) inpCnt.addEventListener('input', syncFromInput);
+            
+            // Run initial calculation
             calculateSavings(); 
 
             // --- Audio Player Controls ---
@@ -520,6 +662,7 @@
                     details: {
                         trucks: inpTrk ? inpTrk.value : "N/A",
                         gallons: inpGal ? inpGal.value : "N/A",
+                        pump_price: inpPrc ? inpPrc.value : "N/A",
                         cents: inpCnt ? inpCnt.value : "N/A",
                         projected_yearly_savings: outYr ? outYr.innerText : "N/A"
                     }
@@ -541,8 +684,11 @@
                 clearTimeout(calcTimeout);
                 calcTimeout = setTimeout(() => { trackEvent('calculator_updated'); }, 1500);
             }
-            if (inpGal) inpGal.addEventListener('input', debounceCalcTrack);
+            if (slideTrk) slideTrk.addEventListener('change', debounceCalcTrack);
+            if (slideGal) slideGal.addEventListener('change', debounceCalcTrack);
+            if (slideCnt) slideCnt.addEventListener('change', debounceCalcTrack);
             if (inpTrk) inpTrk.addEventListener('input', debounceCalcTrack);
+            if (inpGal) inpGal.addEventListener('input', debounceCalcTrack);
             if (inpCnt) inpCnt.addEventListener('input', debounceCalcTrack);
 
             // Scroll Tracking
