@@ -23,12 +23,6 @@
         }
     </script>
     <style>
-        .massive-text {
-            font-size: clamp(5rem, 15vw, 12rem);
-            line-height: 0.8;
-            font-weight: 900;
-            letter-spacing: -0.05em;
-        }
         .section-num {
             font-size: clamp(8rem, 25vw, 15rem);
             line-height: 0.7;
@@ -69,8 +63,8 @@
         </h1>
         
         <div class="mt-8 mb-8">
-            <div class="massive-text text-primaryRed mb-2">$630</div>
-            <h2 class="text-2xl md:text-3xl font-bold uppercase tracking-tight">Back in your pocket — per truck, per week.</h2>
+            <div class="text-6xl md:text-8xl font-black text-primaryRed mb-2 tracking-tighter">$400 - $600</div>
+            <h2 class="text-2xl md:text-3xl font-bold uppercase tracking-tight">Monthly per truck.</h2>
             <p class="text-gray-600 font-medium mt-2 max-w-2xl text-lg">
                 Beat your current fuel card's discounts. Run a live comparison today and see how our direct-to-pump volume contracts save you massive margins nationwide.
             </p>
@@ -152,19 +146,19 @@
                             </div>
                         </div>
 
-                        <!-- Gallons -->
+                        <!-- Gallons (Changed to Monthly) -->
                         <div>
                             <div class="flex flex-col sm:flex-row sm:justify-between sm:items-center mb-3 gap-2">
-                                <label class="font-bold text-gray-800 text-sm leading-tight">Weekly Gallons Per Truck</label>
+                                <label class="font-bold text-gray-800 text-sm leading-tight">Monthly Gallons Per Truck</label>
                                 <div class="bg-alertPink text-primaryRed font-black text-xl px-3 py-1 rounded-lg flex items-baseline gap-1 self-start sm:self-auto flex-shrink-0">
-                                    <input type="number" id="calcGallons" value="1000" min="200" max="5000" step="10" class="bg-transparent w-20 text-right outline-none">
+                                    <input type="number" id="calcGallons" value="2500" min="500" max="15000" step="100" class="bg-transparent w-20 text-right outline-none">
                                     <span class="text-sm font-bold">gal</span>
                                 </div>
                             </div>
-                            <input type="range" id="slideGallons" min="200" max="3000" step="50" value="1000" class="w-full">
+                            <input type="range" id="slideGallons" min="500" max="15000" step="100" value="2500" class="w-full">
                             <div class="flex justify-between text-xs text-gray-400 font-bold mt-2">
-                                <span>200 gal</span>
-                                <span>3,000 gal</span>
+                                <span>500 gal</span>
+                                <span>15,000 gal</span>
                             </div>
                         </div>
 
@@ -272,18 +266,10 @@
             We partner with major nationwide networks including <strong>Love's, Pilot Flying J, and TA Petro</strong> to bring massive discounts directly to your bottom line. All premium stops on one single fuel card.
         </p>
         
-        <div class="grid grid-cols-1 sm:grid-cols-3 gap-6 mb-12">
-            <div class="bg-gray-50 border border-gray-200 p-6 rounded-xl text-center">
-                <div class="text-4xl font-black text-primaryRed mb-2">1,572</div>
-                <div class="text-sm font-bold uppercase text-gray-600">Total Locations</div>
-            </div>
-            <div class="bg-gray-50 border border-gray-200 p-6 rounded-xl text-center">
-                <div class="text-4xl font-black text-primaryRed mb-2">180+</div>
-                <div class="text-sm font-bold uppercase text-gray-600">Discounts > $0.80/gal</div>
-            </div>
-            <div class="bg-gray-50 border border-gray-200 p-6 rounded-xl text-center">
-                <div class="text-4xl font-black text-primaryRed mb-2">$1.00+</div>
-                <div class="text-sm font-bold uppercase text-gray-600">Savings at Hubs</div>
+        <div class="mb-12 max-w-sm">
+            <div class="bg-gray-50 border border-gray-200 p-8 rounded-xl text-center shadow-sm">
+                <div class="text-5xl font-black text-primaryRed mb-2">1,572</div>
+                <div class="text-sm font-bold uppercase text-gray-600 tracking-wider">Total Locations</div>
             </div>
         </div>
 
@@ -560,20 +546,28 @@
             function calculateSavings() {
                 if (!inpGal || !inpTrk || !inpCnt || !inpPrc || !outWk || !outMo || !outYr || !outSpend) return;
                 
-                const gal = parseFloat(inpGal.value) || 0;
+                // Value is now properly mapped as Monthly Gallons
+                const gal = parseFloat(inpGal.value) || 0; 
                 const trk = parseFloat(inpTrk.value) || 0;
                 const cnt = parseFloat(inpCnt.value) || 0;
                 const prc = parseFloat(inpPrc.value) || 0;
 
-                const spendMonthly = gal * trk * prc * 4.333;
-                const weekly = (gal * trk * (cnt / 100));
-                const monthly = weekly * 4.333; 
-                const yearly = weekly * 52;
+                // Spend Monthly = Monthly Gallons * Trucks * Price
+                const spendMonthly = gal * trk * prc;
+                
+                // Monthly Savings = Monthly Gallons * Trucks * (Cents / 100)
+                const monthlySavings = gal * trk * (cnt / 100);
+                
+                // Weekly Savings = Monthly Savings / (52 weeks / 12 months)
+                const weeklySavings = monthlySavings / (52 / 12); 
+                
+                // Yearly Savings = Monthly Savings * 12 months
+                const yearlySavings = monthlySavings * 12;
 
                 outSpend.innerText = '$' + spendMonthly.toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2});
-                outWk.innerText = '$' + weekly.toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2});
-                outMo.innerText = '$' + monthly.toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2});
-                outYr.innerText = '$' + yearly.toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2});
+                outWk.innerText = '$' + weeklySavings.toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2});
+                outMo.innerText = '$' + monthlySavings.toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2});
+                outYr.innerText = '$' + yearlySavings.toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2});
             }
 
             function syncFromSlider() {
