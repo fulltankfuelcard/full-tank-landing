@@ -63,8 +63,8 @@
         </h1>
         
         <div class="mt-8 mb-8">
-            <div class="text-6xl md:text-8xl font-black text-primaryRed mb-2 tracking-tighter">$400 - $600</div>
-            <h2 class="text-2xl md:text-3xl font-bold uppercase tracking-tight">Monthly per truck.</h2>
+            <div class="text-6xl md:text-8xl font-black text-primaryRed mb-2 tracking-tighter">$400 - $630</div>
+            <h2 class="text-2xl md:text-3xl font-bold uppercase tracking-tight">Weekly per truck.</h2>
             <p class="text-gray-600 font-medium mt-2 max-w-2xl text-lg">
                 Beat your current fuel card's discounts. Run a live comparison today and see how our direct-to-pump volume contracts save you massive margins nationwide.
             </p>
@@ -146,7 +146,7 @@
                             </div>
                         </div>
 
-                        <!-- Gallons (Changed to Monthly) -->
+                        <!-- Gallons (Monthly) -->
                         <div>
                             <div class="flex flex-col sm:flex-row sm:justify-between sm:items-center mb-3 gap-2">
                                 <label class="font-bold text-gray-800 text-sm leading-tight">Monthly Gallons Per Truck</label>
@@ -233,7 +233,6 @@
                     <div class="mt-6 sm:mt-8">
                         <div class="bg-deepBlack rounded-2xl p-6 sm:p-8 shadow-xl text-white">
                             <div class="text-gray-400 font-bold mb-2 text-sm sm:text-base">Yearly Savings Forecast</div>
-                            <!-- Dynamic typography clamps size based on viewport width -->
                             <div class="font-black text-primaryRed mb-4 tracking-tighter break-words leading-none" style="font-size: clamp(2rem, 10vw, 4rem);" id="outYearly">$10,920.00</div>
                             <p class="text-xs sm:text-sm text-gray-400 italic">That's money going straight back into your business for maintenance, tires, or truck payments.</p>
                         </div>
@@ -546,22 +545,14 @@
             function calculateSavings() {
                 if (!inpGal || !inpTrk || !inpCnt || !inpPrc || !outWk || !outMo || !outYr || !outSpend) return;
                 
-                // Value is now properly mapped as Monthly Gallons
                 const gal = parseFloat(inpGal.value) || 0; 
                 const trk = parseFloat(inpTrk.value) || 0;
                 const cnt = parseFloat(inpCnt.value) || 0;
                 const prc = parseFloat(inpPrc.value) || 0;
 
-                // Spend Monthly = Monthly Gallons * Trucks * Price
                 const spendMonthly = gal * trk * prc;
-                
-                // Monthly Savings = Monthly Gallons * Trucks * (Cents / 100)
                 const monthlySavings = gal * trk * (cnt / 100);
-                
-                // Weekly Savings = Monthly Savings / (52 weeks / 12 months)
                 const weeklySavings = monthlySavings / (52 / 12); 
-                
-                // Yearly Savings = Monthly Savings * 12 months
                 const yearlySavings = monthlySavings * 12;
 
                 outSpend.innerText = '$' + spendMonthly.toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2});
