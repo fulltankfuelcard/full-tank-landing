@@ -29,9 +29,8 @@
             font-weight: 900;
             letter-spacing: -0.05em;
         }
-        /* Fixed line-height to ensure numbers stay strictly inside the black section */
         .section-num {
-            font-size: clamp(6rem, 15vw, 12rem);
+            font-size: clamp(5rem, 12vw, 12rem);
             line-height: 1;
             font-weight: 900;
             color: #E52421;
@@ -122,34 +121,34 @@
 
     <!-- SECTION 01: CALCULATOR DIVIDER -->
     <section class="bg-deepBlack text-white py-12 px-6">
-        <div class="max-w-5xl mx-auto flex items-center gap-6">
-            <div class="section-num">01</div>
+        <div class="max-w-5xl mx-auto flex flex-row items-center gap-4 sm:gap-6">
+            <div class="section-num flex-shrink-0">01</div>
             <div>
-                <h2 class="text-4xl md:text-5xl font-black mb-2">Savings Forecast Calculator</h2>
-                <p class="text-gray-400 text-lg">Adjust the sliders below based on your current volume and see exactly how much you can add to your bottom line.</p>
+                <h2 class="text-3xl sm:text-4xl md:text-5xl font-black mb-2 leading-tight">Savings Forecast Calculator</h2>
+                <p class="text-gray-400 text-base sm:text-lg">Adjust the sliders below based on your current volume and see exactly how much you can add to your bottom line.</p>
             </div>
         </div>
     </section>
 
     <!-- SECTION 01: CALCULATOR CONTENT -->
-    <section class="bg-deepBlack pb-20 px-6">
+    <section class="bg-deepBlack pb-20 px-2 sm:px-6">
         <div class="max-w-5xl mx-auto">
-            <div class="bg-white rounded-3xl shadow-2xl flex flex-col lg:flex-row overflow-hidden border border-gray-200">
+            <div class="bg-white rounded-2xl sm:rounded-3xl shadow-2xl flex flex-col lg:flex-row overflow-hidden border border-gray-200">
                 
                 <!-- Left: Inputs (Fixed Width to prevent layout shift) -->
-                <div class="w-full lg:w-1/2 p-6 sm:p-8 md:p-12 border-b lg:border-b-0 lg:border-r border-gray-100">
-                    <h3 class="text-xl sm:text-2xl font-black mb-10 flex items-center gap-3 text-deepBlack">
+                <div class="w-full lg:w-1/2 p-5 sm:p-8 md:p-12 border-b lg:border-b-0 lg:border-r border-gray-100">
+                    <h3 class="text-lg sm:text-2xl font-black mb-8 flex items-center gap-3 text-deepBlack">
                         <svg class="w-6 h-6 text-primaryRed flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4"></path></svg>
                         Input Your Fleet Data
                     </h3>
 
-                    <div class="space-y-12">
+                    <div class="space-y-10">
                         <!-- Trucks -->
                         <div>
-                            <div class="flex flex-row justify-between items-center mb-3 gap-2 w-full">
-                                <label class="font-bold text-gray-800 text-sm md:text-base leading-tight flex-1">Number of Trucks</label>
-                                <div class="bg-alertPink text-primaryRed font-black px-3 py-2 rounded-lg flex items-center justify-center flex-shrink-0 min-w-[80px]">
-                                    <input type="number" id="calcTrucks" value="1" min="1" max="100" class="bg-transparent w-full text-center outline-none" style="font-size: clamp(1.5rem, 4vw, 2.25rem);">
+                            <div class="flex flex-col sm:flex-row sm:justify-between items-start sm:items-center mb-3 gap-2 w-full">
+                                <label class="font-bold text-gray-800 text-sm md:text-base leading-tight">Number of Trucks</label>
+                                <div class="bg-alertPink text-primaryRed font-black px-3 py-2 rounded-lg flex items-center justify-center w-full sm:w-auto">
+                                    <input type="number" id="calcTrucks" value="1" min="1" max="100" class="bg-transparent w-full sm:w-20 text-center outline-none" style="font-size: clamp(1.5rem, 4vw, 2.25rem);">
                                 </div>
                             </div>
                             <input type="range" id="slideTrucks" min="1" max="50" value="1" class="w-full">
@@ -161,10 +160,10 @@
 
                         <!-- Gallons (Monthly) -->
                         <div>
-                            <div class="flex flex-row justify-between items-center mb-3 gap-2 w-full">
-                                <label class="font-bold text-gray-800 text-sm md:text-base leading-tight flex-1">Monthly Gallons Per Truck</label>
-                                <div class="bg-alertPink text-primaryRed font-black px-3 py-2 rounded-lg flex items-baseline justify-end flex-shrink-0 min-w-[120px]">
-                                    <input type="number" id="calcGallons" value="2000" min="500" max="5000" step="100" class="bg-transparent w-full text-right outline-none" style="font-size: clamp(1.5rem, 4vw, 2.25rem);">
+                            <div class="flex flex-col sm:flex-row sm:justify-between items-start sm:items-center mb-3 gap-2 w-full">
+                                <label class="font-bold text-gray-800 text-sm md:text-base leading-tight">Monthly Gallons Per Truck</label>
+                                <div class="bg-alertPink text-primaryRed font-black px-3 py-2 rounded-lg flex items-baseline justify-center sm:justify-end w-full sm:w-auto">
+                                    <input type="number" id="calcGallons" value="2000" min="500" max="5000" step="100" class="bg-transparent w-24 sm:w-28 text-right outline-none" style="font-size: clamp(1.5rem, 4vw, 2.25rem);">
                                     <span class="text-sm md:text-xl font-bold text-primaryRed ml-1">gal</span>
                                 </div>
                             </div>
@@ -177,11 +176,11 @@
 
                         <!-- Price -->
                         <div>
-                            <div class="flex flex-row justify-between items-center mb-3 gap-2 w-full">
-                                <label class="font-bold text-gray-800 text-sm md:text-base leading-tight flex-1">Average Price at the Pump</label>
-                                <div class="bg-alertPink text-primaryRed font-black px-3 py-2 rounded-lg flex items-baseline justify-start flex-shrink-0 min-w-[120px]">
+                            <div class="flex flex-col sm:flex-row sm:justify-between items-start sm:items-center mb-3 gap-2 w-full">
+                                <label class="font-bold text-gray-800 text-sm md:text-base leading-tight">Average Price at the Pump</label>
+                                <div class="bg-alertPink text-primaryRed font-black px-3 py-2 rounded-lg flex items-baseline justify-center sm:justify-start w-full sm:w-auto">
                                     <span class="text-xl md:text-3xl mr-1">$</span>
-                                    <input type="number" id="calcPrice" value="5.70" min="2.00" max="9.00" step="0.01" class="bg-transparent w-full text-left outline-none" style="font-size: clamp(1.5rem, 4vw, 2.25rem);">
+                                    <input type="number" id="calcPrice" value="5.70" min="2.00" max="9.00" step="0.01" class="bg-transparent w-20 sm:w-24 text-left outline-none" style="font-size: clamp(1.5rem, 4vw, 2.25rem);">
                                     <span class="text-sm md:text-xl font-bold text-primaryRed ml-1">/gal</span>
                                 </div>
                             </div>
@@ -194,10 +193,10 @@
 
                         <!-- Cents -->
                         <div>
-                            <div class="flex flex-row justify-between items-center mb-3 gap-2 w-full">
-                                <label class="font-bold text-gray-800 text-sm md:text-base leading-tight flex-1">Expected Savings vs. Current Price</label>
-                                <div class="bg-alertPink text-primaryRed font-black px-3 py-2 rounded-lg flex items-baseline justify-end flex-shrink-0 min-w-[100px]">
-                                    <input type="number" id="calcCents" value="100" min="1" max="200" class="bg-transparent w-full text-right outline-none" style="font-size: clamp(1.5rem, 4vw, 2.25rem);">
+                            <div class="flex flex-col sm:flex-row sm:justify-between items-start sm:items-center mb-3 gap-2 w-full">
+                                <label class="font-bold text-gray-800 text-sm md:text-base leading-tight">Expected Savings vs. Current Price</label>
+                                <div class="bg-alertPink text-primaryRed font-black px-3 py-2 rounded-lg flex items-baseline justify-center sm:justify-end w-full sm:w-auto">
+                                    <input type="number" id="calcCents" value="100" min="1" max="200" class="bg-transparent w-16 text-right outline-none" style="font-size: clamp(1.5rem, 4vw, 2.25rem);">
                                     <span class="text-sm md:text-xl font-bold text-primaryRed ml-1">¢ /gal</span>
                                 </div>
                             </div>
@@ -211,42 +210,41 @@
                 </div>
 
                 <!-- Right: Output (Fixed Width to prevent layout shift) -->
-                <div class="w-full lg:w-1/2 p-6 sm:p-8 md:p-12 bg-gray-50 flex flex-col justify-between overflow-hidden">
+                <div class="w-full lg:w-1/2 p-5 sm:p-8 md:p-12 bg-gray-50 flex flex-col justify-between overflow-hidden">
                     <div>
-                        <h3 class="text-sm font-bold tracking-widest text-gray-500 uppercase mb-8 flex items-center gap-2">
+                        <h3 class="text-sm font-bold tracking-widest text-gray-500 uppercase mb-6 flex items-center gap-2">
                             <svg class="w-5 h-5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"></path></svg>
                             YOUR PROFIT RECOVERED
                         </h3>
 
-                        <div class="space-y-4 sm:space-y-6">
+                        <div class="space-y-4">
                             <!-- Spend -->
-                            <div class="bg-white rounded-xl p-5 sm:p-6 border border-gray-200 flex flex-row justify-between items-center shadow-sm gap-2">
+                            <div class="bg-white rounded-xl p-4 sm:p-6 border border-gray-200 flex flex-col sm:flex-row justify-between items-start sm:items-center shadow-sm gap-2">
                                 <div>
                                     <div class="font-bold text-gray-600 text-sm sm:text-lg">Current Monthly Spend</div>
                                     <div class="text-xs text-gray-400">Before Full Tank discounts</div>
                                 </div>
-                                <div class="font-black text-gray-400 line-through text-right whitespace-nowrap" id="outSpend" style="font-size: clamp(1.25rem, 3vw, 2rem);">$11,400.00</div>
+                                <div class="font-black text-gray-400 line-through text-left sm:text-right whitespace-nowrap w-full sm:w-auto" id="outSpend" style="font-size: clamp(1.5rem, 3vw, 2rem);">$11,400.00</div>
                             </div>
 
                             <!-- Weekly -->
-                            <div class="bg-white rounded-xl p-5 sm:p-6 border border-gray-200 flex flex-row justify-between items-center shadow-sm gap-2">
+                            <div class="bg-white rounded-xl p-4 sm:p-6 border border-gray-200 flex flex-col sm:flex-row justify-between items-start sm:items-center shadow-sm gap-2">
                                 <div class="font-bold text-gray-600 text-sm sm:text-lg whitespace-nowrap">Weekly Savings</div>
-                                <div class="font-black text-deepBlack text-right whitespace-nowrap" id="outWeekly" style="font-size: clamp(1.5rem, 4vw, 2.5rem);">$461.54</div>
+                                <div class="font-black text-deepBlack text-left sm:text-right whitespace-nowrap w-full sm:w-auto" id="outWeekly" style="font-size: clamp(1.75rem, 4vw, 2.5rem);">$461.54</div>
                             </div>
 
                             <!-- Monthly -->
-                            <div class="bg-white rounded-xl p-5 sm:p-6 border border-gray-200 flex flex-row justify-between items-center shadow-sm gap-2">
+                            <div class="bg-white rounded-xl p-4 sm:p-6 border border-gray-200 flex flex-col sm:flex-row justify-between items-start sm:items-center shadow-sm gap-2">
                                 <div class="font-bold text-gray-600 text-sm sm:text-lg whitespace-nowrap">Monthly Savings</div>
-                                <div class="font-black text-deepBlack text-right whitespace-nowrap" id="outMonthly" style="font-size: clamp(1.5rem, 4vw, 2.5rem);">$2,000.00</div>
+                                <div class="font-black text-deepBlack text-left sm:text-right whitespace-nowrap w-full sm:w-auto" id="outMonthly" style="font-size: clamp(1.75rem, 4vw, 2.5rem);">$2,000.00</div>
                             </div>
                         </div>
                     </div>
 
                     <!-- Yearly Black Box -->
-                    <div class="mt-8 sm:mt-10">
+                    <div class="mt-8">
                         <div class="bg-deepBlack rounded-2xl p-6 sm:p-8 shadow-xl text-white overflow-hidden">
                             <div class="text-gray-400 font-bold mb-2 text-base sm:text-lg">Yearly Savings Forecast</div>
-                            <!-- Added whitespace-nowrap to absolutely force 1 line, reduced base clamp to 2rem to ensure long numbers shrink to fit perfectly -->
                             <div class="font-black text-primaryRed mb-4 tracking-tighter whitespace-nowrap leading-none" style="font-size: clamp(2rem, 8vw, 4.5rem);" id="outYearly">$24,000.00</div>
                             <p class="text-sm text-gray-400 italic">That's money going straight back into your business for maintenance, tires, or truck payments.</p>
                         </div>
@@ -262,12 +260,12 @@
 
     <!-- SECTION 02: NETWORK DIVIDER -->
     <section class="bg-deepBlack text-white py-12 px-6 border-t border-gray-800">
-        <div class="max-w-5xl mx-auto flex items-center gap-6">
-            <div class="section-num">02</div>
+        <div class="max-w-5xl mx-auto flex flex-row items-center gap-4 sm:gap-6">
+            <div class="section-num flex-shrink-0">02</div>
             <div>
                 <p class="text-primaryRed font-bold text-sm tracking-widest uppercase mb-2">Section</p>
-                <h2 class="text-4xl md:text-5xl font-black mb-2">Live Discounts</h2>
-                <p class="text-gray-400 text-lg">Transparent Rates, No Guesswork.</p>
+                <h2 class="text-3xl sm:text-4xl md:text-5xl font-black mb-2 leading-tight">Live Discounts</h2>
+                <p class="text-gray-400 text-base sm:text-lg">Transparent Rates, No Guesswork.</p>
             </div>
         </div>
     </section>
@@ -286,9 +284,9 @@
             </div>
         </div>
 
-        <!-- Embedded Interactive Map -->
-        <div class="bg-deepBlack p-2 sm:p-4 rounded-2xl text-white shadow-xl mx-auto">
-            <div class="mb-4 px-2 sm:px-4 flex flex-col md:flex-row md:items-center justify-between gap-4">
+        <!-- Embedded Interactive Map (Minimized borders on mobile) -->
+        <div class="bg-deepBlack p-1 sm:p-8 rounded-xl sm:rounded-2xl text-white shadow-xl mx-auto">
+            <div class="mb-4 pt-4 sm:pt-0 px-3 sm:px-0 flex flex-col md:flex-row md:items-center justify-between gap-4">
                 <div class="flex-1">
                     <h4 class="text-2xl font-bold mb-1">Check Our Live Map</h4>
                     <p class="text-gray-400 text-sm md:text-base">Apply the promo code directly in the map below to instantly unlock live rates across the network.</p>
@@ -298,7 +296,7 @@
                     <p class="text-2xl sm:text-3xl font-black text-primaryRed tracking-wider">diesel8k</p>
                 </div>
             </div>
-            <div class="w-full bg-white rounded-xl overflow-hidden" style="min-height: 600px;">
+            <div class="w-full bg-white rounded-lg sm:rounded-xl overflow-hidden" style="min-height: 600px;">
                 <iframe src="https://fulltank.us/fuel-stations" class="w-full h-full min-h-[600px] border-0" title="Full Tank Interactive Fuel Map"></iframe>
             </div>
         </div>
@@ -306,12 +304,12 @@
 
     <!-- SECTION 03: SECURITY DIVIDER -->
     <section class="bg-deepBlack text-white py-12 px-6">
-        <div class="max-w-5xl mx-auto flex items-center gap-6">
-            <div class="section-num">03</div>
+        <div class="max-w-5xl mx-auto flex flex-row items-center gap-4 sm:gap-6">
+            <div class="section-num flex-shrink-0">03</div>
             <div>
                 <p class="text-primaryRed font-bold text-sm tracking-widest uppercase mb-2">Section</p>
-                <h2 class="text-4xl md:text-5xl font-black mb-2">Zero-Fraud Security</h2>
-                <p class="text-gray-400 text-lg">Next-Level Protection via Route One Go.</p>
+                <h2 class="text-3xl sm:text-4xl md:text-5xl font-black mb-2 leading-tight">Zero-Fraud Security</h2>
+                <p class="text-gray-400 text-base sm:text-lg">Next-Level Protection via Route One Go.</p>
             </div>
         </div>
     </section>
@@ -357,12 +355,12 @@
 
     <!-- SECTION 04: CHOOSE YOUR CARD DIVIDER -->
     <section class="bg-deepBlack text-white py-12 px-6">
-        <div class="max-w-5xl mx-auto flex items-center gap-6">
-            <div class="section-num">04</div>
+        <div class="max-w-5xl mx-auto flex flex-row items-center gap-4 sm:gap-6">
+            <div class="section-num flex-shrink-0">04</div>
             <div>
                 <p class="text-primaryRed font-bold text-sm tracking-widest uppercase mb-2">Section</p>
-                <h2 class="text-4xl md:text-5xl font-black mb-2">Choose Your Card</h2>
-                <p class="text-gray-400 text-lg">Pick the path that fits how you run your fleet.</p>
+                <h2 class="text-3xl sm:text-4xl md:text-5xl font-black mb-2 leading-tight">Choose Your Card</h2>
+                <p class="text-gray-400 text-base sm:text-lg">Pick the path that fits how you run your fleet.</p>
             </div>
         </div>
     </section>
@@ -415,7 +413,7 @@
                 </div>
             </div>
 
-            <!-- Booking Calendar: Permanently hardcoded to Dumitru -->
+            <!-- Booking Calendar -->
             <div class="flex-1 bg-white p-2 rounded-2xl shadow-xl border border-gray-100 flex flex-col" style="min-height: 600px;">
                 <iframe src="https://calendar.app.google/GoK1yJpfuEUWogKV7" class="w-full flex-1 rounded-xl" frameborder="0" style="min-height: 600px;"></iframe>
                 <div class="p-4 text-center">
@@ -451,205 +449,275 @@
 
     <script>
         document.addEventListener("DOMContentLoaded", function() {
-            const urlParams = new URLSearchParams(window.location.search);
-            
-            // Client Data Extraction
-            const company = urlParams.get('company');
-            const name = urlParams.get('name');
-            const address = urlParams.get('address'); 
-            const trucks = urlParams.get('trucks');
-            const mc = urlParams.get('mc');
-            const dot = urlParams.get('dot');
-
-            // --- Sales Rep Data (Defaulting strictly to Dumitru) ---
-            let repName = urlParams.get('repName') || 'Dumitru';
-            let repPhone = urlParams.get('repPhone') || '8728715787';
-            let repEmail = urlParams.get('repEmail') || 'dumitru@fulltank.us';
-
-            if (repName.toLowerCase() === 'leman') {
-                repName = 'Dumitru';
-                repPhone = '8728715787';
-                repEmail = 'dumitru@fulltank.us';
-            }
-
-            // --- Safe DOM Population for Client Data ---
-            const elCompanyMain = document.getElementById('companyDisplayMain');
-            if (elCompanyMain) {
-                elCompanyMain.innerText = company ? company : 'Fleet Partner';
-            }
-
-            const elName = document.getElementById('contactNameDisplay');
-            if (elName && name) {
-                elName.innerText = name;
-                elName.classList.remove('hidden');
-            }
-
-            const elCompanyBadge = document.getElementById('companyNameBadge');
-            if (elCompanyBadge && company) {
-                elCompanyBadge.innerText = company;
-                elCompanyBadge.classList.remove('hidden');
-            }
-            
-            const elAddress = document.getElementById('addressDisplay');
-            if (elAddress && address) {
-                elAddress.innerText = address;
-                elAddress.classList.remove('hidden');
-            }
-            
-            // Truck URL mapping
-            const elCalcTrucks = document.getElementById('calcTrucks');
-            const elSlideTrucks = document.getElementById('slideTrucks');
-            if (trucks) {
-                const elTrucksBadge = document.getElementById('trucksDisplayBadge');
-                const elTruckCount = document.getElementById('truckCountText');
-                if (elTrucksBadge && elTruckCount) {
-                    elTruckCount.innerText = trucks + (trucks == 1 ? ' Truck' : ' Trucks');
-                    elTrucksBadge.classList.remove('hidden');
-                }
-                if (elCalcTrucks) elCalcTrucks.value = trucks;
-                if (elSlideTrucks) elSlideTrucks.value = trucks;
-            }
-
-            const badgesContainer = document.getElementById('badgesContainer');
-            if (badgesContainer) {
-                if (mc) {
-                    badgesContainer.innerHTML += `<span class="bg-deepBlack text-white text-xs font-bold px-3 py-1 rounded-md tracking-wider">MC# ${mc}</span>`;
-                }
-                if (dot) {
-                    badgesContainer.innerHTML += `<span class="bg-deepBlack text-white text-xs font-bold px-3 py-1 rounded-md tracking-wider">DOT# ${dot}</span>`;
-                    badgesContainer.innerHTML += `<span class="bg-successGreen text-white text-xs font-bold px-3 py-1 rounded-md tracking-wider border border-green-700">ACTIVE</span>`;
-                }
-            }
-
-            // --- Sales Rep Population ---
-            const elRepName = document.getElementById('repNameDisplay');
-            if (elRepName) elRepName.innerText = repName;
-            
-            const elRepPhone = document.getElementById('repPhoneDisplay');
-            if (elRepPhone) {
-                const cleaned = ('' + repPhone).replace(/\D/g, '');
-                const match = cleaned.match(/^(\d{3})(\d{3})(\d{4})$/);
-                if (match) {
-                    elRepPhone.innerText = '(' + match[1] + ') ' + match[2] + '-' + match[3];
-                } else {
-                    elRepPhone.innerText = repPhone;
-                }
-            }
-            
-            const elRepPhoneLink = document.getElementById('repPhoneLink');
-            if (elRepPhoneLink) elRepPhoneLink.href = 'tel:' + repPhone.replace(/[^0-9+]/g, '');
-
-            const elRepEmailLink = document.getElementById('repEmailLink');
-            const elRepEmailDisplay = document.getElementById('repEmailDisplay');
-            if (repEmail && elRepEmailLink && elRepEmailDisplay) {
-                elRepEmailLink.classList.remove('hidden');
-                elRepEmailLink.href = 'mailto:' + repEmail;
-                elRepEmailDisplay.innerText = repEmail;
-            }
-
-            const audioFileName = repName.toLowerCase() + '.mp3';
-            const elAudio = document.getElementById('proposalAudio');
-            if (elAudio) elAudio.src = audioFileName;
-
-            // --- Interactive Calculator Logic ---
-            const slideTrk = document.getElementById('slideTrucks');
-            const slideGal = document.getElementById('slideGallons');
-            const slidePrc = document.getElementById('slidePrice');
-            const slideCnt = document.getElementById('slideCents');
-
-            const inpTrk = document.getElementById('calcTrucks');
-            const inpGal = document.getElementById('calcGallons');
-            const inpPrc = document.getElementById('calcPrice');
-            const inpCnt = document.getElementById('calcCents');
-
-            const outSpend = document.getElementById('outSpend');
-            const outWk = document.getElementById('outWeekly');
-            const outMo = document.getElementById('outMonthly');
-            const outYr = document.getElementById('outYearly');
-
-            function calculateSavings() {
-                if (!inpGal || !inpTrk || !inpCnt || !inpPrc || !outWk || !outMo || !outYr || !outSpend) return;
+            // Wrapped entire logic in try/catch to ensure robust execution
+            try {
+                const urlParams = new URLSearchParams(window.location.search);
                 
-                const gal = parseFloat(inpGal.value) || 0; 
-                const trk = parseFloat(inpTrk.value) || 0;
-                const cnt = parseFloat(inpCnt.value) || 0;
-                const prc = parseFloat(inpPrc.value) || 0;
+                // Client Data Extraction
+                const company = urlParams.get('company');
+                const name = urlParams.get('name');
+                const address = urlParams.get('address'); 
+                const trucks = urlParams.get('trucks');
+                const mc = urlParams.get('mc');
+                const dot = urlParams.get('dot');
 
-                const spendMonthly = gal * trk * prc;
-                const monthlySavings = gal * trk * (cnt / 100);
-                const weeklySavings = monthlySavings / (52 / 12); 
-                const yearlySavings = monthlySavings * 12;
+                // --- Sales Rep Data (Defaulting strictly to Dumitru) ---
+                let repName = urlParams.get('repName') || 'Dumitru';
+                let repPhone = urlParams.get('repPhone') || '8728715787';
+                let repEmail = urlParams.get('repEmail') || 'dumitru@fulltank.us';
 
-                outSpend.innerText = '$' + spendMonthly.toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2});
-                outWk.innerText = '$' + weeklySavings.toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2});
-                outMo.innerText = '$' + monthlySavings.toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2});
-                outYr.innerText = '$' + yearlySavings.toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2});
-            }
+                if (repName.toLowerCase() === 'leman') {
+                    repName = 'Dumitru';
+                    repPhone = '8728715787';
+                    repEmail = 'dumitru@fulltank.us';
+                }
 
-            function syncFromSlider() {
-                inpTrk.value = slideTrk.value;
-                inpGal.value = slideGal.value;
-                inpPrc.value = parseFloat(slidePrc.value).toFixed(2);
-                inpCnt.value = slideCnt.value;
-                calculateSavings();
-            }
+                // --- Safe DOM Population for Client Data ---
+                const elCompanyMain = document.getElementById('companyDisplayMain');
+                if (elCompanyMain) {
+                    elCompanyMain.innerText = company ? company : 'Fleet Partner';
+                }
 
-            function syncFromInput() {
-                slideTrk.value = inpTrk.value;
-                slideGal.value = inpGal.value;
-                slidePrc.value = inpPrc.value;
-                slideCnt.value = inpCnt.value;
-                calculateSavings();
-            }
+                const elName = document.getElementById('contactNameDisplay');
+                if (elName && name) {
+                    elName.innerText = name;
+                    elName.classList.remove('hidden');
+                }
 
-            if (slideTrk) slideTrk.addEventListener('input', syncFromSlider);
-            if (slideGal) slideGal.addEventListener('input', syncFromSlider);
-            if (slidePrc) slidePrc.addEventListener('input', syncFromSlider);
-            if (slideCnt) slideCnt.addEventListener('input', syncFromSlider);
+                const elCompanyBadge = document.getElementById('companyNameBadge');
+                if (elCompanyBadge && company) {
+                    elCompanyBadge.innerText = company;
+                    elCompanyBadge.classList.remove('hidden');
+                }
+                
+                const elAddress = document.getElementById('addressDisplay');
+                if (elAddress && address) {
+                    elAddress.innerText = address;
+                    elAddress.classList.remove('hidden');
+                }
+                
+                // Truck URL mapping
+                const elCalcTrucks = document.getElementById('calcTrucks');
+                const elSlideTrucks = document.getElementById('slideTrucks');
+                if (trucks) {
+                    const elTrucksBadge = document.getElementById('trucksDisplayBadge');
+                    const elTruckCount = document.getElementById('truckCountText');
+                    if (elTrucksBadge && elTruckCount) {
+                        elTruckCount.innerText = trucks + (trucks == 1 ? ' Truck' : ' Trucks');
+                        elTrucksBadge.classList.remove('hidden');
+                    }
+                    if (elCalcTrucks) elCalcTrucks.value = trucks;
+                    if (elSlideTrucks) elSlideTrucks.value = trucks;
+                }
 
-            if (inpTrk) inpTrk.addEventListener('input', syncFromInput);
-            if (inpGal) inpGal.addEventListener('input', syncFromInput);
-            if (inpPrc) inpPrc.addEventListener('input', syncFromInput);
-            if (inpCnt) inpCnt.addEventListener('input', syncFromInput);
-            
-            // Run initial calculation
-            calculateSavings(); 
+                const badgesContainer = document.getElementById('badgesContainer');
+                if (badgesContainer) {
+                    if (mc) {
+                        badgesContainer.innerHTML += `<span class="bg-deepBlack text-white text-xs font-bold px-3 py-1 rounded-md tracking-wider">MC# ${mc}</span>`;
+                    }
+                    if (dot) {
+                        badgesContainer.innerHTML += `<span class="bg-deepBlack text-white text-xs font-bold px-3 py-1 rounded-md tracking-wider">DOT# ${dot}</span>`;
+                        badgesContainer.innerHTML += `<span class="bg-successGreen text-white text-xs font-bold px-3 py-1 rounded-md tracking-wider border border-green-700">ACTIVE</span>`;
+                    }
+                }
 
-            // --- Audio Player Controls ---
-            const playBtn = document.getElementById('playPauseBtn');
-            const playIcon = document.getElementById('playIcon');
-            const pauseIcon = document.getElementById('pauseIcon');
-            const progress = document.getElementById('audioProgress');
-
-            if (elAudio && playBtn) {
-                playBtn.addEventListener('click', () => {
-                    if (elAudio.paused) {
-                        elAudio.play().catch(e => console.log('Playback error:', e));
-                        if (playIcon) playIcon.classList.add('hidden');
-                        if (pauseIcon) pauseIcon.classList.remove('hidden');
-                        trackEvent('audio_played');
+                // --- Sales Rep Population ---
+                const elRepName = document.getElementById('repNameDisplay');
+                if (elRepName) elRepName.innerText = repName;
+                
+                const elRepPhone = document.getElementById('repPhoneDisplay');
+                if (elRepPhone) {
+                    const cleaned = ('' + repPhone).replace(/\D/g, '');
+                    const match = cleaned.match(/^(\d{3})(\d{3})(\d{4})$/);
+                    if (match) {
+                        elRepPhone.innerText = '(' + match[1] + ') ' + match[2] + '-' + match[3];
                     } else {
-                        elAudio.pause();
+                        elRepPhone.innerText = repPhone;
+                    }
+                }
+                
+                const elRepPhoneLink = document.getElementById('repPhoneLink');
+                if (elRepPhoneLink) elRepPhoneLink.href = 'tel:' + repPhone.replace(/[^0-9+]/g, '');
+
+                const elRepEmailLink = document.getElementById('repEmailLink');
+                const elRepEmailDisplay = document.getElementById('repEmailDisplay');
+                if (repEmail && elRepEmailLink && elRepEmailDisplay) {
+                    elRepEmailLink.classList.remove('hidden');
+                    elRepEmailLink.href = 'mailto:' + repEmail;
+                    elRepEmailDisplay.innerText = repEmail;
+                }
+
+                const audioFileName = repName.toLowerCase() + '.mp3';
+                const elAudio = document.getElementById('proposalAudio');
+                if (elAudio) elAudio.src = audioFileName;
+
+                // --- Interactive Calculator Logic ---
+                const slideTrk = document.getElementById('slideTrucks');
+                const slideGal = document.getElementById('slideGallons');
+                const slidePrc = document.getElementById('slidePrice');
+                const slideCnt = document.getElementById('slideCents');
+
+                const inpTrk = document.getElementById('calcTrucks');
+                const inpGal = document.getElementById('calcGallons');
+                const inpPrc = document.getElementById('calcPrice');
+                const inpCnt = document.getElementById('calcCents');
+
+                const outSpend = document.getElementById('outSpend');
+                const outWk = document.getElementById('outWeekly');
+                const outMo = document.getElementById('outMonthly');
+                const outYr = document.getElementById('outYearly');
+
+                function calculateSavings() {
+                    if (!inpGal || !inpTrk || !inpCnt || !inpPrc || !outWk || !outMo || !outYr || !outSpend) return;
+                    
+                    const gal = parseFloat(inpGal.value) || 0; 
+                    const trk = parseFloat(inpTrk.value) || 0;
+                    const cnt = parseFloat(inpCnt.value) || 0;
+                    const prc = parseFloat(inpPrc.value) || 0;
+
+                    const spendMonthly = gal * trk * prc;
+                    const monthlySavings = gal * trk * (cnt / 100);
+                    const weeklySavings = monthlySavings / (52 / 12); 
+                    const yearlySavings = monthlySavings * 12;
+
+                    outSpend.innerText = '$' + spendMonthly.toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2});
+                    outWk.innerText = '$' + weeklySavings.toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2});
+                    outMo.innerText = '$' + monthlySavings.toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2});
+                    outYr.innerText = '$' + yearlySavings.toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2});
+                }
+
+                function syncFromSlider() {
+                    inpTrk.value = slideTrk.value;
+                    inpGal.value = slideGal.value;
+                    inpPrc.value = parseFloat(slidePrc.value).toFixed(2);
+                    inpCnt.value = slideCnt.value;
+                    calculateSavings();
+                }
+
+                function syncFromInput() {
+                    slideTrk.value = inpTrk.value;
+                    slideGal.value = inpGal.value;
+                    slidePrc.value = inpPrc.value;
+                    slideCnt.value = inpCnt.value;
+                    calculateSavings();
+                }
+
+                if (slideTrk) slideTrk.addEventListener('input', syncFromSlider);
+                if (slideGal) slideGal.addEventListener('input', syncFromSlider);
+                if (slidePrc) slidePrc.addEventListener('input', syncFromSlider);
+                if (slideCnt) slideCnt.addEventListener('input', syncFromSlider);
+
+                if (inpTrk) inpTrk.addEventListener('input', syncFromInput);
+                if (inpGal) inpGal.addEventListener('input', syncFromInput);
+                if (inpPrc) inpPrc.addEventListener('input', syncFromInput);
+                if (inpCnt) inpCnt.addEventListener('input', syncFromInput);
+                
+                calculateSavings(); 
+
+                // --- Audio Player Controls ---
+                const playBtn = document.getElementById('playPauseBtn');
+                const playIcon = document.getElementById('playIcon');
+                const pauseIcon = document.getElementById('pauseIcon');
+                const progress = document.getElementById('audioProgress');
+
+                if (elAudio && playBtn) {
+                    playBtn.addEventListener('click', () => {
+                        if (elAudio.paused) {
+                            elAudio.play().then(() => {
+                                if (playIcon) playIcon.classList.add('hidden');
+                                if (pauseIcon) pauseIcon.classList.remove('hidden');
+                                trackEvent('audio_played');
+                            }).catch(e => {
+                                console.log('Playback error:', e);
+                                alert('Voice note could not be loaded. Please ensure the MP3 file is hosted on your server.');
+                            });
+                        } else {
+                            elAudio.pause();
+                            if (playIcon) playIcon.classList.remove('hidden');
+                            if (pauseIcon) pauseIcon.classList.add('hidden');
+                        }
+                    });
+
+                    elAudio.addEventListener('timeupdate', () => {
+                        if (progress && elAudio.duration) {
+                            const percent = (elAudio.currentTime / elAudio.duration) * 100;
+                            progress.value = percent || 0;
+                        }
+                    });
+
+                    if (progress) {
+                        progress.addEventListener('input', (e) => {
+                            if (elAudio.duration) {
+                                const time = (e.target.value / 100) * elAudio.duration;
+                                elAudio.currentTime = time;
+                            }
+                        });
+                    }
+
+                    elAudio.addEventListener('ended', () => {
                         if (playIcon) playIcon.classList.remove('hidden');
                         if (pauseIcon) pauseIcon.classList.add('hidden');
-                    }
-                });
-
-                elAudio.addEventListener('timeupdate', () => {
-                    if (progress && elAudio.duration) {
-                        const percent = (elAudio.currentTime / elAudio.duration) * 100;
-                        progress.value = percent || 0;
-                    }
-                });
-
-                if (progress) {
-                    progress.addEventListener('input', (e) => {
-                        if (elAudio.duration) {
-                            const time = (e.target.value / 100) * elAudio.duration;
-                            elAudio.currentTime = time;
-                        }
+                        if (progress) progress.value = 0;
                     });
                 }
 
-                elAudio.addEventListener('ended', () => {
-                    if (playIcon) playIcon.classList.remove
+                // --- N8N Tracking ---
+                const n8nWebhookURL = 'https://fultankfuelcard.app.n8n.cloud/webhook/lead-events';
+                
+                function trackEvent(eventType) {
+                    if(urlParams.get('preview') === 'true') return;
+                    if(!n8nWebhookURL) return;
+
+                    const payload = {
+                        event_type: eventType,
+                        client_company: company || 'N/A',
+                        sales_rep: repName || 'N/A',
+                        timestamp: new Date().toLocaleString(),
+                        details: {
+                            trucks: inpTrk ? inpTrk.value : "N/A",
+                            gallons: inpGal ? inpGal.value : "N/A",
+                            pump_price: inpPrc ? inpPrc.value : "N/A",
+                            cents: inpCnt ? inpCnt.value : "N/A",
+                            projected_yearly_savings: outYr ? outYr.innerText : "N/A"
+                        }
+                    };
+
+                    fetch(n8nWebhookURL, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify(payload)
+                    }).catch(err => console.log('Analytics error:', err));
+                }
+
+                // Trigger instant open tracking
+                trackEvent('link_opened');
+
+                // Debounced Calculator Tracking
+                let calcTimeout;
+                function debounceCalcTrack() {
+                    clearTimeout(calcTimeout);
+                    calcTimeout = setTimeout(() => { trackEvent('calculator_updated'); }, 1500);
+                }
+                if (slideTrk) slideTrk.addEventListener('change', debounceCalcTrack);
+                if (slideGal) slideGal.addEventListener('change', debounceCalcTrack);
+                if (slideCnt) slideCnt.addEventListener('change', debounceCalcTrack);
+                if (inpTrk) inpTrk.addEventListener('input', debounceCalcTrack);
+                if (inpGal) inpGal.addEventListener('input', debounceCalcTrack);
+                if (inpCnt) inpCnt.addEventListener('input', debounceCalcTrack);
+
+                // Scroll Tracking
+                let scrolledBottom = false;
+                window.addEventListener('scroll', () => {
+                    if(!scrolledBottom && (window.innerHeight + window.scrollY) >= document.body.offsetHeight - 200) {
+                        scrolledBottom = true;
+                        trackEvent('scrolled_to_bottom');
+                    }
+                });
+
+            } catch (error) {
+                console.error("Error loading personalized script data:", error);
+            }
+        });
+    </script>
+</body>
+</html>
