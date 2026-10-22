@@ -30,14 +30,13 @@
             letter-spacing: -0.05em;
         }
         .section-num {
-            font-size: clamp(5rem, 12vw, 12rem);
+            font-size: clamp(6rem, 15vw, 12rem);
             line-height: 1;
             font-weight: 900;
             color: #E52421;
             margin: 0;
             padding-right: 1rem;
         }
-        /* Custom Range Slider Thumb */
         input[type=range] {
             -webkit-appearance: none;
             background: #E5E7EB;
@@ -53,7 +52,6 @@
             cursor: pointer;
             box-shadow: 0 2px 4px rgba(0,0,0,0.2);
         }
-        /* Hide spin buttons on large numbers for cleaner look */
         input[type="number"]::-webkit-outer-spin-button,
         input[type="number"]::-webkit-inner-spin-button {
             -webkit-appearance: none;
@@ -104,7 +102,7 @@
         </div>
 
         <!-- Custom Lead Data Card -->
-        <div class="bg-gray-50 border border-gray-200 p-6 rounded-xl shadow-sm max-w-xl">
+        <div id="leadDataCard" class="bg-gray-50 border border-gray-200 p-6 rounded-xl shadow-sm max-w-xl">
             <p class="text-xs uppercase tracking-widest text-gray-500 font-bold mb-4 border-b border-gray-200 pb-2">Prepared For</p>
             
             <p id="contactNameDisplay" class="text-2xl font-black text-deepBlack mb-1 hidden"></p>
@@ -135,7 +133,7 @@
         <div class="max-w-5xl mx-auto">
             <div class="bg-white rounded-2xl sm:rounded-3xl shadow-2xl flex flex-col lg:flex-row overflow-hidden border border-gray-200">
                 
-                <!-- Left: Inputs (Fixed Width to prevent layout shift) -->
+                <!-- Left: Inputs -->
                 <div class="w-full lg:w-1/2 p-5 sm:p-8 md:p-12 border-b lg:border-b-0 lg:border-r border-gray-100">
                     <h3 class="text-lg sm:text-2xl font-black mb-8 flex items-center gap-3 text-deepBlack">
                         <svg class="w-6 h-6 text-primaryRed flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4"></path></svg>
@@ -143,7 +141,6 @@
                     </h3>
 
                     <div class="space-y-10">
-                        <!-- Trucks -->
                         <div>
                             <div class="flex flex-col sm:flex-row sm:justify-between items-start sm:items-center mb-3 gap-2 w-full">
                                 <label class="font-bold text-gray-800 text-sm md:text-base leading-tight">Number of Trucks</label>
@@ -158,7 +155,6 @@
                             </div>
                         </div>
 
-                        <!-- Gallons (Monthly) -->
                         <div>
                             <div class="flex flex-col sm:flex-row sm:justify-between items-start sm:items-center mb-3 gap-2 w-full">
                                 <label class="font-bold text-gray-800 text-sm md:text-base leading-tight">Monthly Gallons Per Truck</label>
@@ -174,7 +170,6 @@
                             </div>
                         </div>
 
-                        <!-- Price -->
                         <div>
                             <div class="flex flex-col sm:flex-row sm:justify-between items-start sm:items-center mb-3 gap-2 w-full">
                                 <label class="font-bold text-gray-800 text-sm md:text-base leading-tight">Average Price at the Pump</label>
@@ -191,7 +186,6 @@
                             </div>
                         </div>
 
-                        <!-- Cents -->
                         <div>
                             <div class="flex flex-col sm:flex-row sm:justify-between items-start sm:items-center mb-3 gap-2 w-full">
                                 <label class="font-bold text-gray-800 text-sm md:text-base leading-tight">Expected Savings vs. Current Price</label>
@@ -209,7 +203,7 @@
                     </div>
                 </div>
 
-                <!-- Right: Output (Fixed Width to prevent layout shift) -->
+                <!-- Right: Output -->
                 <div class="w-full lg:w-1/2 p-5 sm:p-8 md:p-12 bg-gray-50 flex flex-col justify-between overflow-hidden">
                     <div>
                         <h3 class="text-sm font-bold tracking-widest text-gray-500 uppercase mb-6 flex items-center gap-2">
@@ -218,7 +212,6 @@
                         </h3>
 
                         <div class="space-y-4">
-                            <!-- Spend -->
                             <div class="bg-white rounded-xl p-4 sm:p-6 border border-gray-200 flex flex-col sm:flex-row justify-between items-start sm:items-center shadow-sm gap-2">
                                 <div>
                                     <div class="font-bold text-gray-600 text-sm sm:text-lg">Current Monthly Spend</div>
@@ -227,13 +220,11 @@
                                 <div class="font-black text-gray-400 line-through text-left sm:text-right whitespace-nowrap w-full sm:w-auto" id="outSpend" style="font-size: clamp(1.5rem, 3vw, 2rem);">$11,400.00</div>
                             </div>
 
-                            <!-- Weekly -->
                             <div class="bg-white rounded-xl p-4 sm:p-6 border border-gray-200 flex flex-col sm:flex-row justify-between items-start sm:items-center shadow-sm gap-2">
                                 <div class="font-bold text-gray-600 text-sm sm:text-lg whitespace-nowrap">Weekly Savings</div>
                                 <div class="font-black text-deepBlack text-left sm:text-right whitespace-nowrap w-full sm:w-auto" id="outWeekly" style="font-size: clamp(1.75rem, 4vw, 2.5rem);">$461.54</div>
                             </div>
 
-                            <!-- Monthly -->
                             <div class="bg-white rounded-xl p-4 sm:p-6 border border-gray-200 flex flex-col sm:flex-row justify-between items-start sm:items-center shadow-sm gap-2">
                                 <div class="font-bold text-gray-600 text-sm sm:text-lg whitespace-nowrap">Monthly Savings</div>
                                 <div class="font-black text-deepBlack text-left sm:text-right whitespace-nowrap w-full sm:w-auto" id="outMonthly" style="font-size: clamp(1.75rem, 4vw, 2.5rem);">$2,000.00</div>
@@ -241,7 +232,6 @@
                         </div>
                     </div>
 
-                    <!-- Yearly Black Box -->
                     <div class="mt-8">
                         <div class="bg-deepBlack rounded-2xl p-6 sm:p-8 shadow-xl text-white overflow-hidden">
                             <div class="text-gray-400 font-bold mb-2 text-base sm:text-lg">Yearly Savings Forecast</div>
@@ -284,7 +274,6 @@
             </div>
         </div>
 
-        <!-- Embedded Interactive Map (Minimized borders on mobile) -->
         <div class="bg-deepBlack p-1 sm:p-8 rounded-xl sm:rounded-2xl text-white shadow-xl mx-auto">
             <div class="mb-4 pt-4 sm:pt-0 px-3 sm:px-0 flex flex-col md:flex-row md:items-center justify-between gap-4">
                 <div class="flex-1">
@@ -368,7 +357,6 @@
     <!-- SECTION 04: CHOOSE YOUR CARD CONTENT -->
     <section class="py-16 px-6 max-w-5xl mx-auto">
         <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-            <!-- Credit Line -->
             <div class="bg-gray-50 border border-gray-200 p-8 rounded-2xl flex flex-col justify-between shadow-sm">
                 <div>
                     <h3 class="text-3xl font-black uppercase mb-2">Credit Line</h3>
@@ -378,7 +366,6 @@
                 </div>
             </div>
             
-            <!-- Prepaid -->
             <div class="bg-gray-50 border border-gray-200 p-8 rounded-2xl flex flex-col justify-between shadow-sm">
                 <div>
                     <h3 class="text-3xl font-black uppercase mb-2">Prepaid Card</h3>
@@ -394,7 +381,6 @@
     <section class="bg-gray-50 py-16 px-6 border-t border-gray-200">
         <div class="max-w-5xl mx-auto flex flex-col lg:flex-row gap-12">
             
-            <!-- Contact Card -->
             <div class="flex-1">
                 <h3 class="text-3xl font-black uppercase mb-6">Ready to Run Your Specific Lanes?</h3>
                 <p class="text-lg text-gray-700 mb-8">Schedule a consultation with your dedicated account manager. We will review live maps and customize your program.</p>
@@ -413,7 +399,6 @@
                 </div>
             </div>
 
-            <!-- Booking Calendar -->
             <div class="flex-1 bg-white p-2 rounded-2xl shadow-xl border border-gray-100 flex flex-col" style="min-height: 600px;">
                 <iframe src="https://calendar.app.google/GoK1yJpfuEUWogKV7" class="w-full flex-1 rounded-xl" frameborder="0" style="min-height: 600px;"></iframe>
                 <div class="p-4 text-center">
@@ -449,274 +434,269 @@
 
     <script>
         document.addEventListener("DOMContentLoaded", function() {
-            // Wrapped entire logic in try/catch to ensure robust execution
-            try {
-                const urlParams = new URLSearchParams(window.location.search);
+            const urlParams = new URLSearchParams(window.location.search);
+            
+            const company = urlParams.get('company');
+            const name = urlParams.get('name');
+            const address = urlParams.get('address'); 
+            const trucks = urlParams.get('trucks');
+            const mc = urlParams.get('mc');
+            const dot = urlParams.get('dot');
+
+            let repName = urlParams.get('repName') || 'Dumitru';
+            let repPhone = urlParams.get('repPhone') || '8728715787';
+            let repEmail = urlParams.get('repEmail') || 'dumitru@fulltank.us';
+
+            if (repName.toLowerCase() === 'leman') {
+                repName = 'Dumitru';
+                repPhone = '8728715787';
+                repEmail = 'dumitru@fulltank.us';
+            }
+
+            // Hide Prepared For block if entirely empty to prevent blank cards on screen
+            const leadCard = document.getElementById('leadDataCard');
+            if(!company && !name && !address && !trucks && !mc && !dot) {
+                if(leadCard) leadCard.classList.add('hidden');
+            } else {
+                if(leadCard) leadCard.classList.remove('hidden');
+            }
+
+            const elCompanyMain = document.getElementById('companyDisplayMain');
+            if (elCompanyMain && company) { elCompanyMain.textContent = company; }
+
+            const elName = document.getElementById('contactNameDisplay');
+            if (elName && name) {
+                elName.textContent = name;
+                elName.classList.remove('hidden');
+            }
+
+            const elCompanyBadge = document.getElementById('companyNameBadge');
+            if (elCompanyBadge && company) {
+                elCompanyBadge.textContent = company;
+                elCompanyBadge.classList.remove('hidden');
+            }
+            
+            const elAddress = document.getElementById('addressDisplay');
+            if (elAddress && address) {
+                elAddress.textContent = address;
+                elAddress.classList.remove('hidden');
+            }
+            
+            const elCalcTrucks = document.getElementById('calcTrucks');
+            const elSlideTrucks = document.getElementById('slideTrucks');
+            if (trucks) {
+                const elTrucksBadge = document.getElementById('trucksDisplayBadge');
+                const elTruckCount = document.getElementById('truckCountText');
+                if (elTrucksBadge && elTruckCount) {
+                    elTruckCount.textContent = trucks + (trucks == 1 ? ' Truck' : ' Trucks');
+                    elTrucksBadge.classList.remove('hidden');
+                }
+                if (elCalcTrucks) elCalcTrucks.value = trucks;
+                if (elSlideTrucks) elSlideTrucks.value = trucks;
+            }
+
+            const badgesContainer = document.getElementById('badgesContainer');
+            if (badgesContainer) {
+                if (mc) {
+                    badgesContainer.innerHTML += `<span class="bg-deepBlack text-white text-xs font-bold px-3 py-1 rounded-md tracking-wider">MC# ${mc}</span>`;
+                }
+                if (dot) {
+                    badgesContainer.innerHTML += `<span class="bg-deepBlack text-white text-xs font-bold px-3 py-1 rounded-md tracking-wider">DOT# ${dot}</span>`;
+                    badgesContainer.innerHTML += `<span class="bg-successGreen text-white text-xs font-bold px-3 py-1 rounded-md tracking-wider border border-green-700">ACTIVE</span>`;
+                }
+            }
+
+            const elRepName = document.getElementById('repNameDisplay');
+            if (elRepName) elRepName.textContent = repName;
+            
+            const elRepPhone = document.getElementById('repPhoneDisplay');
+            if (elRepPhone) {
+                const cleaned = ('' + repPhone).replace(/\D/g, '');
+                const match = cleaned.match(/^(\d{3})(\d{3})(\d{4})$/);
+                if (match) {
+                    elRepPhone.textContent = '(' + match[1] + ') ' + match[2] + '-' + match[3];
+                } else {
+                    elRepPhone.textContent = repPhone;
+                }
+            }
+            
+            const elRepPhoneLink = document.getElementById('repPhoneLink');
+            if (elRepPhoneLink) elRepPhoneLink.href = 'tel:' + repPhone.replace(/[^0-9+]/g, '');
+
+            const elRepEmailLink = document.getElementById('repEmailLink');
+            const elRepEmailDisplay = document.getElementById('repEmailDisplay');
+            if (repEmail && elRepEmailLink && elRepEmailDisplay) {
+                elRepEmailLink.classList.remove('hidden');
+                elRepEmailLink.href = 'mailto:' + repEmail;
+                elRepEmailDisplay.textContent = repEmail;
+            }
+
+            // Audio Player Initialization
+            const audioFileName = repName.toLowerCase() + '.mp3';
+            const elAudio = document.getElementById('proposalAudio');
+            if (elAudio) {
+                elAudio.src = audioFileName;
+            }
+
+            // Calculator Math
+            const slideTrk = document.getElementById('slideTrucks');
+            const slideGal = document.getElementById('slideGallons');
+            const slidePrc = document.getElementById('slidePrice');
+            const slideCnt = document.getElementById('slideCents');
+
+            const inpTrk = document.getElementById('calcTrucks');
+            const inpGal = document.getElementById('calcGallons');
+            const inpPrc = document.getElementById('calcPrice');
+            const inpCnt = document.getElementById('calcCents');
+
+            const outSpend = document.getElementById('outSpend');
+            const outWk = document.getElementById('outWeekly');
+            const outMo = document.getElementById('outMonthly');
+            const outYr = document.getElementById('outYearly');
+
+            function calculateSavings() {
+                if (!inpGal || !inpTrk || !inpCnt || !inpPrc || !outWk || !outMo || !outYr || !outSpend) return;
                 
-                // Client Data Extraction
-                const company = urlParams.get('company');
-                const name = urlParams.get('name');
-                const address = urlParams.get('address'); 
-                const trucks = urlParams.get('trucks');
-                const mc = urlParams.get('mc');
-                const dot = urlParams.get('dot');
+                const gal = parseFloat(inpGal.value) || 0; 
+                const trk = parseFloat(inpTrk.value) || 0;
+                const cnt = parseFloat(inpCnt.value) || 0;
+                const prc = parseFloat(inpPrc.value) || 0;
 
-                // --- Sales Rep Data (Defaulting strictly to Dumitru) ---
-                let repName = urlParams.get('repName') || 'Dumitru';
-                let repPhone = urlParams.get('repPhone') || '8728715787';
-                let repEmail = urlParams.get('repEmail') || 'dumitru@fulltank.us';
+                const spendMonthly = gal * trk * prc;
+                const monthlySavings = gal * trk * (cnt / 100);
+                const weeklySavings = monthlySavings / (52 / 12); 
+                const yearlySavings = monthlySavings * 12;
 
-                if (repName.toLowerCase() === 'leman') {
-                    repName = 'Dumitru';
-                    repPhone = '8728715787';
-                    repEmail = 'dumitru@fulltank.us';
-                }
+                outSpend.innerText = '$' + spendMonthly.toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2});
+                outWk.innerText = '$' + weeklySavings.toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2});
+                outMo.innerText = '$' + monthlySavings.toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2});
+                outYr.innerText = '$' + yearlySavings.toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2});
+            }
 
-                // --- Safe DOM Population for Client Data ---
-                const elCompanyMain = document.getElementById('companyDisplayMain');
-                if (elCompanyMain) {
-                    elCompanyMain.innerText = company ? company : 'Fleet Partner';
-                }
+            function syncFromSlider() {
+                inpTrk.value = slideTrk.value;
+                inpGal.value = slideGal.value;
+                inpPrc.value = parseFloat(slidePrc.value).toFixed(2);
+                inpCnt.value = slideCnt.value;
+                calculateSavings();
+            }
 
-                const elName = document.getElementById('contactNameDisplay');
-                if (elName && name) {
-                    elName.innerText = name;
-                    elName.classList.remove('hidden');
-                }
+            function syncFromInput() {
+                slideTrk.value = inpTrk.value;
+                slideGal.value = inpGal.value;
+                slidePrc.value = inpPrc.value;
+                slideCnt.value = inpCnt.value;
+                calculateSavings();
+            }
 
-                const elCompanyBadge = document.getElementById('companyNameBadge');
-                if (elCompanyBadge && company) {
-                    elCompanyBadge.innerText = company;
-                    elCompanyBadge.classList.remove('hidden');
-                }
-                
-                const elAddress = document.getElementById('addressDisplay');
-                if (elAddress && address) {
-                    elAddress.innerText = address;
-                    elAddress.classList.remove('hidden');
-                }
-                
-                // Truck URL mapping
-                const elCalcTrucks = document.getElementById('calcTrucks');
-                const elSlideTrucks = document.getElementById('slideTrucks');
-                if (trucks) {
-                    const elTrucksBadge = document.getElementById('trucksDisplayBadge');
-                    const elTruckCount = document.getElementById('truckCountText');
-                    if (elTrucksBadge && elTruckCount) {
-                        elTruckCount.innerText = trucks + (trucks == 1 ? ' Truck' : ' Trucks');
-                        elTrucksBadge.classList.remove('hidden');
-                    }
-                    if (elCalcTrucks) elCalcTrucks.value = trucks;
-                    if (elSlideTrucks) elSlideTrucks.value = trucks;
-                }
+            if (slideTrk) slideTrk.addEventListener('input', syncFromSlider);
+            if (slideGal) slideGal.addEventListener('input', syncFromSlider);
+            if (slidePrc) slidePrc.addEventListener('input', syncFromSlider);
+            if (slideCnt) slideCnt.addEventListener('input', syncFromSlider);
 
-                const badgesContainer = document.getElementById('badgesContainer');
-                if (badgesContainer) {
-                    if (mc) {
-                        badgesContainer.innerHTML += `<span class="bg-deepBlack text-white text-xs font-bold px-3 py-1 rounded-md tracking-wider">MC# ${mc}</span>`;
-                    }
-                    if (dot) {
-                        badgesContainer.innerHTML += `<span class="bg-deepBlack text-white text-xs font-bold px-3 py-1 rounded-md tracking-wider">DOT# ${dot}</span>`;
-                        badgesContainer.innerHTML += `<span class="bg-successGreen text-white text-xs font-bold px-3 py-1 rounded-md tracking-wider border border-green-700">ACTIVE</span>`;
-                    }
-                }
+            if (inpTrk) inpTrk.addEventListener('input', syncFromInput);
+            if (inpGal) inpGal.addEventListener('input', syncFromInput);
+            if (inpPrc) inpPrc.addEventListener('input', syncFromInput);
+            if (inpCnt) inpCnt.addEventListener('input', syncFromInput);
+            
+            calculateSavings(); 
 
-                // --- Sales Rep Population ---
-                const elRepName = document.getElementById('repNameDisplay');
-                if (elRepName) elRepName.innerText = repName;
-                
-                const elRepPhone = document.getElementById('repPhoneDisplay');
-                if (elRepPhone) {
-                    const cleaned = ('' + repPhone).replace(/\D/g, '');
-                    const match = cleaned.match(/^(\d{3})(\d{3})(\d{4})$/);
-                    if (match) {
-                        elRepPhone.innerText = '(' + match[1] + ') ' + match[2] + '-' + match[3];
-                    } else {
-                        elRepPhone.innerText = repPhone;
-                    }
-                }
-                
-                const elRepPhoneLink = document.getElementById('repPhoneLink');
-                if (elRepPhoneLink) elRepPhoneLink.href = 'tel:' + repPhone.replace(/[^0-9+]/g, '');
+            // Audio Player Event Listeners
+            const playBtn = document.getElementById('playPauseBtn');
+            const playIcon = document.getElementById('playIcon');
+            const pauseIcon = document.getElementById('pauseIcon');
+            const progress = document.getElementById('audioProgress');
 
-                const elRepEmailLink = document.getElementById('repEmailLink');
-                const elRepEmailDisplay = document.getElementById('repEmailDisplay');
-                if (repEmail && elRepEmailLink && elRepEmailDisplay) {
-                    elRepEmailLink.classList.remove('hidden');
-                    elRepEmailLink.href = 'mailto:' + repEmail;
-                    elRepEmailDisplay.innerText = repEmail;
-                }
-
-                const audioFileName = repName.toLowerCase() + '.mp3';
-                const elAudio = document.getElementById('proposalAudio');
-                if (elAudio) elAudio.src = audioFileName;
-
-                // --- Interactive Calculator Logic ---
-                const slideTrk = document.getElementById('slideTrucks');
-                const slideGal = document.getElementById('slideGallons');
-                const slidePrc = document.getElementById('slidePrice');
-                const slideCnt = document.getElementById('slideCents');
-
-                const inpTrk = document.getElementById('calcTrucks');
-                const inpGal = document.getElementById('calcGallons');
-                const inpPrc = document.getElementById('calcPrice');
-                const inpCnt = document.getElementById('calcCents');
-
-                const outSpend = document.getElementById('outSpend');
-                const outWk = document.getElementById('outWeekly');
-                const outMo = document.getElementById('outMonthly');
-                const outYr = document.getElementById('outYearly');
-
-                function calculateSavings() {
-                    if (!inpGal || !inpTrk || !inpCnt || !inpPrc || !outWk || !outMo || !outYr || !outSpend) return;
-                    
-                    const gal = parseFloat(inpGal.value) || 0; 
-                    const trk = parseFloat(inpTrk.value) || 0;
-                    const cnt = parseFloat(inpCnt.value) || 0;
-                    const prc = parseFloat(inpPrc.value) || 0;
-
-                    const spendMonthly = gal * trk * prc;
-                    const monthlySavings = gal * trk * (cnt / 100);
-                    const weeklySavings = monthlySavings / (52 / 12); 
-                    const yearlySavings = monthlySavings * 12;
-
-                    outSpend.innerText = '$' + spendMonthly.toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2});
-                    outWk.innerText = '$' + weeklySavings.toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2});
-                    outMo.innerText = '$' + monthlySavings.toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2});
-                    outYr.innerText = '$' + yearlySavings.toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2});
-                }
-
-                function syncFromSlider() {
-                    inpTrk.value = slideTrk.value;
-                    inpGal.value = slideGal.value;
-                    inpPrc.value = parseFloat(slidePrc.value).toFixed(2);
-                    inpCnt.value = slideCnt.value;
-                    calculateSavings();
-                }
-
-                function syncFromInput() {
-                    slideTrk.value = inpTrk.value;
-                    slideGal.value = inpGal.value;
-                    slidePrc.value = inpPrc.value;
-                    slideCnt.value = inpCnt.value;
-                    calculateSavings();
-                }
-
-                if (slideTrk) slideTrk.addEventListener('input', syncFromSlider);
-                if (slideGal) slideGal.addEventListener('input', syncFromSlider);
-                if (slidePrc) slidePrc.addEventListener('input', syncFromSlider);
-                if (slideCnt) slideCnt.addEventListener('input', syncFromSlider);
-
-                if (inpTrk) inpTrk.addEventListener('input', syncFromInput);
-                if (inpGal) inpGal.addEventListener('input', syncFromInput);
-                if (inpPrc) inpPrc.addEventListener('input', syncFromInput);
-                if (inpCnt) inpCnt.addEventListener('input', syncFromInput);
-                
-                calculateSavings(); 
-
-                // --- Audio Player Controls ---
-                const playBtn = document.getElementById('playPauseBtn');
-                const playIcon = document.getElementById('playIcon');
-                const pauseIcon = document.getElementById('pauseIcon');
-                const progress = document.getElementById('audioProgress');
-
-                if (elAudio && playBtn) {
-                    playBtn.addEventListener('click', () => {
-                        if (elAudio.paused) {
-                            elAudio.play().then(() => {
-                                if (playIcon) playIcon.classList.add('hidden');
-                                if (pauseIcon) pauseIcon.classList.remove('hidden');
-                                trackEvent('audio_played');
-                            }).catch(e => {
-                                console.log('Playback error:', e);
-                                alert('Voice note could not be loaded. Please ensure the MP3 file is hosted on your server.');
-                            });
-                        } else {
-                            elAudio.pause();
-                            if (playIcon) playIcon.classList.remove('hidden');
-                            if (pauseIcon) pauseIcon.classList.add('hidden');
-                        }
-                    });
-
-                    elAudio.addEventListener('timeupdate', () => {
-                        if (progress && elAudio.duration) {
-                            const percent = (elAudio.currentTime / elAudio.duration) * 100;
-                            progress.value = percent || 0;
-                        }
-                    });
-
-                    if (progress) {
-                        progress.addEventListener('input', (e) => {
-                            if (elAudio.duration) {
-                                const time = (e.target.value / 100) * elAudio.duration;
-                                elAudio.currentTime = time;
-                            }
+            if (elAudio && playBtn) {
+                playBtn.addEventListener('click', () => {
+                    if (elAudio.paused) {
+                        elAudio.play().then(() => {
+                            if (playIcon) playIcon.classList.add('hidden');
+                            if (pauseIcon) pauseIcon.classList.remove('hidden');
+                            trackEvent('audio_played');
+                        }).catch(e => {
+                            console.log('Playback error:', e);
+                            alert('Voice note could not be loaded. Please ensure the MP3 file is hosted on your server.');
                         });
-                    }
-
-                    elAudio.addEventListener('ended', () => {
+                    } else {
+                        elAudio.pause();
                         if (playIcon) playIcon.classList.remove('hidden');
                         if (pauseIcon) pauseIcon.classList.add('hidden');
-                        if (progress) progress.value = 0;
-                    });
-                }
-
-                // --- N8N Tracking ---
-                const n8nWebhookURL = 'https://fultankfuelcard.app.n8n.cloud/webhook/lead-events';
-                
-                function trackEvent(eventType) {
-                    if(urlParams.get('preview') === 'true') return;
-                    if(!n8nWebhookURL) return;
-
-                    const payload = {
-                        event_type: eventType,
-                        client_company: company || 'N/A',
-                        sales_rep: repName || 'N/A',
-                        timestamp: new Date().toLocaleString(),
-                        details: {
-                            trucks: inpTrk ? inpTrk.value : "N/A",
-                            gallons: inpGal ? inpGal.value : "N/A",
-                            pump_price: inpPrc ? inpPrc.value : "N/A",
-                            cents: inpCnt ? inpCnt.value : "N/A",
-                            projected_yearly_savings: outYr ? outYr.innerText : "N/A"
-                        }
-                    };
-
-                    fetch(n8nWebhookURL, {
-                        method: 'POST',
-                        headers: { 'Content-Type': 'application/json' },
-                        body: JSON.stringify(payload)
-                    }).catch(err => console.log('Analytics error:', err));
-                }
-
-                // Trigger instant open tracking
-                trackEvent('link_opened');
-
-                // Debounced Calculator Tracking
-                let calcTimeout;
-                function debounceCalcTrack() {
-                    clearTimeout(calcTimeout);
-                    calcTimeout = setTimeout(() => { trackEvent('calculator_updated'); }, 1500);
-                }
-                if (slideTrk) slideTrk.addEventListener('change', debounceCalcTrack);
-                if (slideGal) slideGal.addEventListener('change', debounceCalcTrack);
-                if (slideCnt) slideCnt.addEventListener('change', debounceCalcTrack);
-                if (inpTrk) inpTrk.addEventListener('input', debounceCalcTrack);
-                if (inpGal) inpGal.addEventListener('input', debounceCalcTrack);
-                if (inpCnt) inpCnt.addEventListener('input', debounceCalcTrack);
-
-                // Scroll Tracking
-                let scrolledBottom = false;
-                window.addEventListener('scroll', () => {
-                    if(!scrolledBottom && (window.innerHeight + window.scrollY) >= document.body.offsetHeight - 200) {
-                        scrolledBottom = true;
-                        trackEvent('scrolled_to_bottom');
                     }
                 });
 
-            } catch (error) {
-                console.error("Error loading personalized script data:", error);
+                elAudio.addEventListener('timeupdate', () => {
+                    if (progress && elAudio.duration) {
+                        const percent = (elAudio.currentTime / elAudio.duration) * 100;
+                        progress.value = percent || 0;
+                    }
+                });
+
+                if (progress) {
+                    progress.addEventListener('input', (e) => {
+                        if (elAudio.duration) {
+                            const time = (e.target.value / 100) * elAudio.duration;
+                            elAudio.currentTime = time;
+                        }
+                    });
+                }
+
+                elAudio.addEventListener('ended', () => {
+                    if (playIcon) playIcon.classList.remove('hidden');
+                    if (pauseIcon) pauseIcon.classList.add('hidden');
+                    if (progress) progress.value = 0;
+                });
             }
+
+            // Webhook Tracking
+            const n8nWebhookURL = 'https://fultankfuelcard.app.n8n.cloud/webhook/lead-events';
+            
+            function trackEvent(eventType) {
+                if(urlParams.get('preview') === 'true') return;
+                if(!n8nWebhookURL) return;
+
+                const payload = {
+                    event_type: eventType,
+                    client_company: company || 'N/A',
+                    sales_rep: repName || 'N/A',
+                    timestamp: new Date().toLocaleString(),
+                    details: {
+                        trucks: inpTrk ? inpTrk.value : "N/A",
+                        gallons: inpGal ? inpGal.value : "N/A",
+                        pump_price: inpPrc ? inpPrc.value : "N/A",
+                        cents: inpCnt ? inpCnt.value : "N/A",
+                        projected_yearly_savings: outYr ? outYr.innerText : "N/A"
+                    }
+                };
+
+                fetch(n8nWebhookURL, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(payload)
+                }).catch(err => console.log('Analytics error:', err));
+            }
+
+            trackEvent('link_opened');
+
+            let calcTimeout;
+            function debounceCalcTrack() {
+                clearTimeout(calcTimeout);
+                calcTimeout = setTimeout(() => { trackEvent('calculator_updated'); }, 1500);
+            }
+            if (slideTrk) slideTrk.addEventListener('change', debounceCalcTrack);
+            if (slideGal) slideGal.addEventListener('change', debounceCalcTrack);
+            if (slideCnt) slideCnt.addEventListener('change', debounceCalcTrack);
+            if (inpTrk) inpTrk.addEventListener('input', debounceCalcTrack);
+            if (inpGal) inpGal.addEventListener('input', debounceCalcTrack);
+            if (inpCnt) inpCnt.addEventListener('input', debounceCalcTrack);
+
+            let scrolledBottom = false;
+            window.addEventListener('scroll', () => {
+                if(!scrolledBottom && (window.innerHeight + window.scrollY) >= document.body.offsetHeight - 200) {
+                    scrolledBottom = true;
+                    trackEvent('scrolled_to_bottom');
+                }
+            });
         });
     </script>
 </body>
