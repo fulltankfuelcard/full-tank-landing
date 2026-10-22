@@ -132,7 +132,7 @@
     </section>
 
     <!-- SECTION 01: CALCULATOR CONTENT -->
-    <section class="bg-deepBlack pb-20 px-4 sm:px-6">
+    <section class="bg-deepBlack pb-20 px-6">
         <div class="max-w-5xl mx-auto">
             <div class="bg-white rounded-3xl shadow-2xl flex flex-col lg:flex-row overflow-hidden border border-gray-200">
                 
@@ -146,7 +146,6 @@
                     <div class="space-y-12">
                         <!-- Trucks -->
                         <div>
-                            <!-- flex-row is locked, nowrap ensures it stays on one line -->
                             <div class="flex flex-row justify-between items-center mb-3 gap-2 w-full">
                                 <label class="font-bold text-gray-800 text-sm md:text-base leading-tight flex-1">Number of Trucks</label>
                                 <div class="bg-alertPink text-primaryRed font-black px-3 py-2 rounded-lg flex items-center justify-center flex-shrink-0 min-w-[80px]">
@@ -280,7 +279,7 @@
             We partner with major nationwide networks including <strong>Love's, Pilot Flying J, and TA Petro</strong> to bring massive discounts directly to your bottom line. All premium stops on one single fuel card.
         </p>
         
-        <div class="mb-12 max-w-sm">
+        <div class="mb-12 max-w-md mx-auto sm:mx-0 sm:max-w-sm">
             <div class="bg-gray-50 border border-gray-200 p-8 rounded-xl text-center shadow-sm">
                 <div class="text-6xl font-black text-primaryRed mb-2 tracking-tighter">1,572</div>
                 <div class="text-sm font-bold uppercase text-gray-600 tracking-wider">Total Locations</div>
@@ -288,19 +287,19 @@
         </div>
 
         <!-- Embedded Interactive Map -->
-        <div class="bg-deepBlack p-6 sm:p-8 rounded-2xl text-white shadow-xl">
-            <div class="mb-6 flex flex-col md:flex-row md:items-center justify-between gap-6">
+        <div class="bg-deepBlack p-2 sm:p-4 rounded-2xl text-white shadow-xl mx-auto">
+            <div class="mb-4 px-2 sm:px-4 flex flex-col md:flex-row md:items-center justify-between gap-4">
                 <div class="flex-1">
-                    <h4 class="text-2xl font-bold mb-2">Check Our Live Map</h4>
-                    <p class="text-gray-400">Apply the promo code directly in the map below to instantly unlock live rates across the network.</p>
+                    <h4 class="text-2xl font-bold mb-1">Check Our Live Map</h4>
+                    <p class="text-gray-400 text-sm md:text-base">Apply the promo code directly in the map below to instantly unlock live rates across the network.</p>
                 </div>
-                <div class="bg-gray-900 border-2 border-gray-700 p-4 rounded-xl text-center flex-shrink-0 shadow-inner">
+                <div class="bg-gray-900 border border-gray-700 p-3 rounded-xl text-center flex-shrink-0 shadow-inner">
                     <p class="text-xs uppercase tracking-widest text-gray-400 font-bold mb-1">PROMO CODE</p>
-                    <p class="text-3xl sm:text-4xl font-black text-primaryRed tracking-wider">diesel8k</p>
+                    <p class="text-2xl sm:text-3xl font-black text-primaryRed tracking-wider">diesel8k</p>
                 </div>
             </div>
-            <div class="w-full bg-white rounded-xl overflow-hidden" style="min-height: 500px;">
-                <iframe src="https://fulltank.us/fuel-stations" class="w-full h-full min-h-[500px] border-0" title="Full Tank Interactive Fuel Map"></iframe>
+            <div class="w-full bg-white rounded-xl overflow-hidden" style="min-height: 600px;">
+                <iframe src="https://fulltank.us/fuel-stations" class="w-full h-full min-h-[600px] border-0" title="Full Tank Interactive Fuel Map"></iframe>
             </div>
         </div>
     </section>
@@ -416,7 +415,7 @@
                 </div>
             </div>
 
-            <!-- Booking Calendar -->
+            <!-- Booking Calendar: Permanently hardcoded to Dumitru -->
             <div class="flex-1 bg-white p-2 rounded-2xl shadow-xl border border-gray-100 flex flex-col" style="min-height: 600px;">
                 <iframe src="https://calendar.app.google/GoK1yJpfuEUWogKV7" class="w-full flex-1 rounded-xl" frameborder="0" style="min-height: 600px;"></iframe>
                 <div class="p-4 text-center">
@@ -653,65 +652,4 @@
                 }
 
                 elAudio.addEventListener('ended', () => {
-                    if (playIcon) playIcon.classList.remove('hidden');
-                    if (pauseIcon) pauseIcon.classList.add('hidden');
-                    if (progress) progress.value = 0;
-                });
-            }
-
-            // --- N8N Tracking ---
-            const n8nWebhookURL = 'https://fultankfuelcard.app.n8n.cloud/webhook/lead-events';
-            
-            function trackEvent(eventType) {
-                if(urlParams.get('preview') === 'true') return;
-                if(!n8nWebhookURL) return;
-
-                const payload = {
-                    event_type: eventType,
-                    client_company: company || 'N/A',
-                    sales_rep: repName || 'N/A',
-                    timestamp: new Date().toLocaleString(),
-                    details: {
-                        trucks: inpTrk ? inpTrk.value : "N/A",
-                        gallons: inpGal ? inpGal.value : "N/A",
-                        pump_price: inpPrc ? inpPrc.value : "N/A",
-                        cents: inpCnt ? inpCnt.value : "N/A",
-                        projected_yearly_savings: outYr ? outYr.innerText : "N/A"
-                    }
-                };
-
-                fetch(n8nWebhookURL, {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify(payload)
-                }).catch(err => console.log('Analytics error:', err));
-            }
-
-            // Trigger instant open tracking
-            trackEvent('link_opened');
-
-            // Debounced Calculator Tracking
-            let calcTimeout;
-            function debounceCalcTrack() {
-                clearTimeout(calcTimeout);
-                calcTimeout = setTimeout(() => { trackEvent('calculator_updated'); }, 1500);
-            }
-            if (slideTrk) slideTrk.addEventListener('change', debounceCalcTrack);
-            if (slideGal) slideGal.addEventListener('change', debounceCalcTrack);
-            if (slideCnt) slideCnt.addEventListener('change', debounceCalcTrack);
-            if (inpTrk) inpTrk.addEventListener('input', debounceCalcTrack);
-            if (inpGal) inpGal.addEventListener('input', debounceCalcTrack);
-            if (inpCnt) inpCnt.addEventListener('input', debounceCalcTrack);
-
-            // Scroll Tracking
-            let scrolledBottom = false;
-            window.addEventListener('scroll', () => {
-                if(!scrolledBottom && (window.innerHeight + window.scrollY) >= document.body.offsetHeight - 200) {
-                    scrolledBottom = true;
-                    trackEvent('scrolled_to_bottom');
-                }
-            });
-        });
-    </script>
-</body>
-</html>
+                    if (playIcon) playIcon.classList.remove
